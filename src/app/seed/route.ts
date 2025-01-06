@@ -6,7 +6,6 @@ const client = await db.connect();
 
 async function seedTasks() {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
-    await client.sql`DROP TABLE tasks;`
     await client.sql`
         CREATE TABLE IF NOT EXISTS tasks (
             id UUID DEFAULT uuid_generate_v4 PRIMARY KEY,
