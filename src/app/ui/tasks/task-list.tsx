@@ -7,7 +7,11 @@ export default async function TaskList() {
     return (
         <div className="space-y-2">
             {
-                tasks.map((task) => (<Task key={task.id} title={task.title} description={task.description} status={task.status}></Task>))
+                tasks.map((task) => {
+                    return (
+                        <Task key={task.id} title={task.title} description={task.description} status={task.status} />
+                    )
+                })
             }
         </div>
     )
