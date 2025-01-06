@@ -8,7 +8,7 @@ async function seedTasks() {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
     await client.sql`
         CREATE TABLE IF NOT EXISTS tasks (
-            id UUID DEFAULT uuid_generate_v4 PRIMARY KEY,
+            id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
             title VARCHAR(255) NOT NULL,
             description TEXT,
             status VARCHAR(255) NOT NULL
