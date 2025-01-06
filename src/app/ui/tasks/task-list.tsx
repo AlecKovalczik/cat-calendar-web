@@ -1,19 +1,14 @@
-'use client';
-
 import Task from "./task";
+import { fetchTasks } from "@/app/lib/data";
 
-export default function TaskList() {
+export default async function TaskList() {
+    const tasks = await fetchTasks();
+
     return (
         <div className="space-y-2">
-            <Task title="First Task" description="This is just some seed data." status="incomplete"/>
-            <Task title="First Task" description="This is just some seed data." status="incomplete"/>
-            <Task title="First Task" description="This is just some seed data." status="incomplete"/>
-            <Task title="First Task" description="This is just some seed data." status="incomplete"/>
-            <Task title="First Task" description="This is just some seed data." status="incomplete"/>
-            <Task title="First Task" description="This is just some seed data." status="incomplete"/>
-            <Task title="First Task" description="This is just some seed data." status="incomplete"/>
-            <Task title="First Task" description="This is just some seed data." status="incomplete"/>
-            <Task title="First Task" description="This is just some seed data." status="incomplete"/>
+            {
+                tasks.map((task) => (<Task key={task.id} title={task.title} description={task.description} status={task.status}></Task>))
+            }
         </div>
     )
 }
