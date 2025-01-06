@@ -11,12 +11,12 @@ async function seedTasks() {
             id UUID DEFAULT uuid_generate_v4 PRIMARY KEY,
             title VARCHAR(255) NOT NULL,
             description TEXT,
-            status VARCHAR(255) DEFAULT "Incomplete"
+            status VARCHAR(255) NOT NULL
         );
     `;
 
     const insertedTasks = await Promise.all(
-        tasks.map(async (task) => {
+        tasks.map((task) => {
             return client.sql`
                 INSERT INTO tasks (id, title, description, status)
                 VALUES (${task.id}, ${task.title}, ${task.description}, ${task.status})
