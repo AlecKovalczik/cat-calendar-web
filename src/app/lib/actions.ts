@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
+import { redirect } from "next/navigation";
 
 const TaskFormSchema = z.object({
     id: z.string(),
@@ -29,7 +30,7 @@ export type State = {
     message?: string | null;
 };
 
-export async function createTask(prevState: State | undefined, formData: FormData) {
+export async function createTask(prevState: State, formData: FormData) {
     // Validate form fields using Zod
     const validatedFields = CreateTask.safeParse({
         title: formData.get('title'),
@@ -58,4 +59,5 @@ export async function createTask(prevState: State | undefined, formData: FormDat
     }
 
     revalidatePath('/home/tasks');
+    return { message: "Success: Task created."}
 }

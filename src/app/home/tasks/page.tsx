@@ -10,9 +10,6 @@ export default function TasksPage() {
                 <h1 className="text-3xl uppercase"><b>Tasks</b></h1>
                 <div className="hidden w-auto h-full grow rounded-md md:block"></div>
                 <AddModal />
-                {/* <button className="h-[35px] w-[90px] bg-white text-black border border-black rounded-md shadow-[4px_4px_0_0_rgb(0,0,0,.3)] shadow-violet-1000"><b>Add</b></button> */}
-                {/* <AddButton /> */}
-                {/* {<CreateModal />} */}
             </div>
             <TaskList />
         </div>

@@ -18,7 +18,7 @@ export default function AddModal() {
                 <div className="p-8 border w-96 shadow-lg rounded-md bg-white">
                     <div className="text-center">
                         <div className="mt-2 px-7 py-3">
-                            <AddForm submit={toggleShow} />
+                            <AddForm close={toggleShow} />
                         </div>
                     </div>
                 </div>
