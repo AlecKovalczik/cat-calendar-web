@@ -8,6 +8,6 @@ export async function fetchTasks() {
         return data.rows;
     } catch (error) {
         console.error('Database Error:', error);
-        throw new Error('Failed to fetch tasks.');
+        throw new Error('Failed to fetch tasks data.');
     }
 }

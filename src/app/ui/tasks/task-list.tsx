@@ -5,7 +5,7 @@ export default async function TaskList() {
     const tasks = await fetchTasks();
 
     return (
-        <div className="space-y-2">
+        <div className="space-y-2 ">
             {
                 tasks.map((task) => {
                     return (
