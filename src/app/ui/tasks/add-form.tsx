@@ -22,13 +22,13 @@ export default function AddForm({ close }: { close: () => void }) {
                 {/* Task Title */}
                 <div>
                     <label htmlFor="title" className="block">Title:</label>
-                    <input id="title" name="title" type="text" className="bg-gray-200 border border-black rounded-md w-full" />
+                    <input id="title" name="title" type="text" placeholder="Enter a title" className="bg-gray-200 border border-black rounded-md w-full" />
                 </div>
 
                 {/* Task Description */}
                 <div>
                     <label htmlFor="description" className="block">Description:</label>
-                    <input id="description" name="description" type="text" className="bg-gray-200 border border-black rounded-md w-full" />
+                    <input id="description" name="description" placeholder="(optional) Enter a description" type="text" className="bg-gray-200 border border-black rounded-md w-full" />
                 </div>
 
                 {/* Task Status */}

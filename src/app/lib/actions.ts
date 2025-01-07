@@ -8,7 +8,7 @@ const TaskFormSchema = z.object({
     id: z.string(),
     title: z.string({
         invalid_type_error: "Please enter a task title",
-    }),
+    }).min(1, { message: "Please enter a task title", }),
     description: z.string({
         invalid_type_error: "Please enter a task description",
     }),
