@@ -29,7 +29,7 @@ export type State = {
     message?: string | null;
 };
 
-export async function createTask(prevState: State, formData: FormData) {
+export async function createTask(prevState: State | undefined, formData: FormData) {
     // Validate form fields using Zod
     const validatedFields = CreateTask.safeParse({
         title: formData.get('title'),

@@ -8,7 +8,7 @@ export default function AddForm({ submit }: { submit: () => void}) {
     const [state, formAction] = useActionState(createTask, initialState);
 
     return (
-        <form action={formAction} onSubmit={submit} className="flex grow flex-col text-black text-left gap-4">
+        <form action={formAction} className="flex grow flex-col text-black text-left gap-4">
             {/* Form Header */}
             <h3 className="text-2xl text-center content-center py-2 font-bold bg-violet-500 text-white w-full border border-black rounded-md">Add Task</h3>
 
