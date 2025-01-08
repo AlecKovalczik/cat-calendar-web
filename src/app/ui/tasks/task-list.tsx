@@ -1,4 +1,4 @@
-import Task from "./task";
+import TaskItem from "./task";
 import { fetchTasks } from "@/app/lib/data";
 
 export default async function TaskList() {
@@ -9,7 +9,7 @@ export default async function TaskList() {
             {
                 tasks.map((task) => {
                     return (
-                        <Task key={task.id} title={task.title} description={task.description} status={task.status} />
+                        <TaskItem key={task.id} task={task} />
                     )
                 })
             }

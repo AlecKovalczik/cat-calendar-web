@@ -1,4 +1,5 @@
 'use client';
+
 import AddForm from "./add-form";
 import { useState } from "react";
 
@@ -11,7 +12,7 @@ export default function AddModal() {
 
     return (
         <div>
-            <button onClick={toggleShow} className="h-[35px] w-[90px] bg-white text-black border border-black rounded-md shadow-[4px_4px_0_0_rgb(0,0,0,.3)] shadow-violet-1000"><b>Add</b></button>
+            <button onClick={toggleShow} className="h-[35px] w-[90px] bg-white text-black font-bold content-center border border-black rounded-md shadow-[4px_4px_0_0_rgb(0,0,0,.3)] shadow-violet-1000">Add</button>
 
             {show && <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center ">
                 <div className="p-8 border w-96 shadow-lg rounded-md bg-white">
