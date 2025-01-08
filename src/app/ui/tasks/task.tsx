@@ -1,7 +1,6 @@
 'use client';
 
 import { Task } from "@/app/lib/definitions"
-import { DeleteTaskButton } from "./buttons";
 import { useState } from "react";
 import EditForm from "./edit-form";
 
@@ -20,15 +19,16 @@ export default function TaskItem({ task }: { task: Task }) {
                     <p>Description: {task.description}</p>
                     <p>Status: {task.status}</p>
                 </div>
-                <div className="grow"></div>
-                <div>
+                {/* <div className="grow"></div>
+                <div className="h-full my-auto ">
                     <DeleteTaskButton taskId={task.id} />
-                </div>
+                    I'll probably replace this with a checkbox for marking tasks complete or incomplete
+                </div> */}
             </div>
 
             {/* Edit Modal */}
             {show && <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center ">
-                <div className="p-8 border w-96 shadow-lg rounded-md bg-white">
+                <div className="p-8 border w-3/4 md:w-1/2 shadow-lg rounded-md bg-white">
                     <div className="text-center">
                         <div className="mt-2 px-7 py-3">
                             <EditForm task={task} close={toggleShow} />

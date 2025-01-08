@@ -1,15 +1,36 @@
 'use client';
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { deleteTask } from "@/app/lib/actions";
+import Image  from "next/image";
 
-export function DeleteTaskButton({taskId}: {taskId: string}) {
-    const deleteTaskWithId = deleteTask.bind(null, taskId, { message: null });
-    const [state, formAction] = useActionState(deleteTaskWithId, null);
+export function TaskStatusCheckbox({size}: {size: number}) {
+    const [status, setStatus] = useState("incomplete");
+
+    function toggleStatus(){
+        if (status === "incomplete") {
+            setStatus("complete");
+        } else if (status === "complete") {
+            setStatus("incomplete");
+        }
+    }
 
     return (
-        <form action={formAction}>
-            <button type="submit" className="h-[35px] w-[90px] bg-red-600 text-white font-bold border border-black rounded-md shadow-[4px_4px_0_0_rgb(0,0,0,.3)] shadow-violet-1000">Delete</button>
-        </form>
+        <Image 
+            onClick={toggleStatus} 
+            src={status === "complete" ? "/checkbox-checked-2.svg" : "/checkbox-unchecked.svg"} 
+            alt="checkbox" 
+            width={size} 
+            height={size}
+        ></Image>
+    )
+}
+
+export function DeleteTaskButton({taskId}: {taskId: string}) {
+    const deleteTaskWithId = deleteTask.bind(null, { message: null }, taskId);
+    const [, formAction] = useActionState(deleteTaskWithId, null);
+
+    return (
+        <button formAction={formAction} type="submit" className="h-[35px] w-[90px] bg-red-600 text-white font-bold border border-black rounded-md">Delete</button>
     )
 }

@@ -98,7 +98,7 @@ export async function updateTask(id: string, prevState: State, formData: FormDat
     return { message: "Success: Task updated."};
 }
 
-export async function deleteTask(id: string, prevState: State) {
+export async function deleteTask(prevState: State, id: string) {
     try {
         await sql`DELETE FROM tasks WHERE id = ${id}`;
         revalidatePath('/home/tasks');

@@ -2,7 +2,8 @@
 
 import { Task } from "@/app/lib/definitions";
 import { updateTask, State } from "@/app/lib/actions"
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect } from "react";
+import { DeleteTaskButton } from "./buttons";
 
 export default function EditForm({ task, close }: { task: Task, close: () => void }) {
     const initialState: State = { message: null, errors: {} };
@@ -26,13 +27,13 @@ export default function EditForm({ task, close }: { task: Task, close: () => voi
                 {/* Task Title */}
                 <div>
                     <label htmlFor="title" className="block">Title:</label>
-                    <input id="title" name="title" type="text" defaultValue={task.title} className="bg-gray-200 border border-black rounded-md w-full" />
+                    <input id="title" name="title" type="text" defaultValue={task.title} className="bg-gray-200 border border-black rounded-sm w-full p-1" />
                 </div>
 
                 {/* Task Description */}
                 <div>
                     <label htmlFor="description" className="block">Description:</label>
-                    <input id="description" name="description" defaultValue={task.description} type="text" className="bg-gray-200 border border-black rounded-md w-full" />
+                    <input id="description" name="description" defaultValue={task.description} type="text" className="bg-gray-200 border border-black rounded-sm w-full p-1" />
                 </div>
 
                 {/* Task Status */}
@@ -42,48 +43,32 @@ export default function EditForm({ task, close }: { task: Task, close: () => voi
                     <legend className="mt-2 block text">
                         Set the task status:
                     </legend>
-                    <div className="rounded-md border border-black bg-gray-200 px-[14px] py-3">
-                        <div className="flex gap-4">
-                            <div className="flex items-center">
-                            <input
-                                    id="status"
-                                    name="status"
-                                    type="checkbox"
-                                    value="complete"
-                                    defaultChecked={task.status === "complete"}
-                                    className="h-4 w-4 cursor-pointer border border-black bg-white text-black focus:ring-2"
-                                />
-                                <label
-                                    htmlFor="status"
-                                    className="ml-2 flex cursor-pointer items-center gap-1.5 border border-black rounded-full bg-white px-3 py-1.5 text-xs font-medium text-black"
-                                >
-                                    Complete?
-                                </label>
-                            </div>
-                            {/* <div className="flex items-center">
-                                <input
-                                    id="completed"
-                                    name="status"
-                                    type="radio"
-                                    value="completed"
-                                    className="h-4 w-4 cursor-pointer border-black bg-white text-black focus:ring-2"
-                                />
-                                <label
-                                    htmlFor="completed"
-                                    className="ml-2 flex cursor-pointer items-center gap-1.5 border border-black rounded-full bg-violet-500 px-3 py-1.5 text-xs font-medium text-white"
-                                >
-                                    Completed
-                                </label>
-                            </div> */}
-                        </div>
+                    <div className="flex items-center">
+                        <label
+                            htmlFor="status"
+                            className="pr-2 cursor-pointer items-center bg-white font-medium text-black"
+                        >
+                            Complete:
+                        </label>
+                        <input
+                            id="status"
+                            name="status"
+                            type="checkbox"
+                            value="complete"
+                            defaultChecked={task.status === "complete"}
+                            className="h-4 w-4 cursor-pointer border border-black bg-gray-200 text-black focus:ring-2"
+                        />
                     </div>
                 </fieldset>
 
                 {/* Submit Button */}
                 <div className="flex grow flex-row">
-                    <button onClick={close} type="button" className="h-[35px] w-[90px] bg-white text-black border border-black rounded-md">Cancel</button>
+                    <DeleteTaskButton taskId={task.id} />
                     <div className="grow"></div>
-                    <button type="submit" className="h-[35px] w-[90px] bg-violet-500 text-white border border-black rounded-md">Save</button>
+                    <div className="flex grow flex-row gap-2 justify-end">
+                        <button onClick={close} type="button" className="h-[35px] w-[90px] bg-white text-black border border-black rounded-md">Cancel</button>
+                        <button type="submit" className="h-[35px] w-[90px] bg-violet-500 text-white border border-black rounded-md">Save</button>
+                    </div>
                 </div>
             </form>
         </>
