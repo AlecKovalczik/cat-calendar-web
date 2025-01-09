@@ -1,5 +1,5 @@
 import type { NextAuthConfig } from 'next-auth';
-import { createSession, deleteSession } from './app/lib/sessions';
+import { createSession, deleteSession } from './app/lib/session';
 
 export const authConfig = {
     pages: {

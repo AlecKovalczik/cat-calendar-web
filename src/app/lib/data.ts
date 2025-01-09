@@ -1,6 +1,6 @@
 import { sql } from "@vercel/postgres";
 import { Task } from "@/app/lib/definitions"
-import { cookies } from "next/headers";
+import { verifySession } from "./dal";
 
 export async function fetchAllTasks() {
     try {
@@ -14,10 +14,8 @@ export async function fetchAllTasks() {
 }
 
 export async function fetchUsersTasks() {
-    const userId = (await cookies()).get("session")?.value;
-        if (userId === undefined) {
-            throw Error("some how the user's session is undefined but they got here!?"); // should make this redirect to login
-        }
+    const session = await verifySession();
+    const userId = session?.userId.toString();
 
     try {
         const data = await sql<Task>`

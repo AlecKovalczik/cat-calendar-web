@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { sql } from '@vercel/postgres';
 import type { User } from '@/app/lib/definitions';
 import bcryptjs from 'bcryptjs';
-import { createSession } from './app/lib/sessions';
+import { createSession } from './app/lib/session';
 
 async function getUser(email: string): Promise<User | undefined> {
     try {

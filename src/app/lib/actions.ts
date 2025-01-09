@@ -5,7 +5,7 @@ import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
-import { cookies } from "next/headers";
+import { verifySession } from "./dal";
 
 ///////////
 // Users //
@@ -86,10 +86,9 @@ export async function createTask(prevState: State, formData: FormData) {
 
     // Prepare data for insertion into the database
     const { title, description, status } = validatedFields.data;
-    const userId = (await cookies()).get("session")?.value;
-        if (userId === undefined) {
-            throw Error("some how the user's session is undefined but they got here!?"); // should make this redirect to login
-        }
+    
+    const session = await verifySession();
+    const userId = session?.userId.toString();
 
     try {
         await sql`
@@ -101,7 +100,7 @@ export async function createTask(prevState: State, formData: FormData) {
     }
 
     revalidatePath('/home/tasks');
-    return { message: "Success: Task created."}
+    return { message: "Success: Task created." }
 }
 
 export async function updateTask(id: string, prevState: State, formData: FormData) {
@@ -133,7 +132,7 @@ export async function updateTask(id: string, prevState: State, formData: FormDat
     }
 
     revalidatePath('/home/tasks');
-    return { message: "Success: Task updated."};
+    return { message: "Success: Task updated." };
 }
 
 export async function deleteTask(prevState: State, id: string) {
