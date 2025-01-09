@@ -1,5 +1,20 @@
 // This file contains placeholder data that will be replaced in launch.
 
+const users = [
+    {
+        id: "13D07535-C59E-4157-A011-F8D2EF4E0CBB",
+        username: "testuser1",
+        email: "user1@test.com",
+        password: "123456",
+    },
+    {
+        id: "CC27C14A-0ACF-4F4A-A6C9-D45682C144B9",
+        username: "testuser2",
+        email: "user2@test.com",
+        password: "password123",
+    },
+];
+
 const tasks = [
     {
         id: "3958dc9e-742f-4377-85e9-fec4b6a6442a",
@@ -27,4 +42,4 @@ const tasks = [
     },
 ];
 
-export { tasks };
+export { users, tasks };

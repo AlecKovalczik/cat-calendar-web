@@ -1,5 +1,6 @@
 import Link from "next/link";
 import NavLinks from "./nav-links";
+import { signOut } from '@/../auth';
 
 
 export default function SideNav() {
@@ -17,12 +18,12 @@ export default function SideNav() {
                 <NavLinks></NavLinks>
                 <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div>
                 <form
-                    // action={async () => {
-                    //     'use server';
-                    //     await signOut();
-                    // }}
+                    action={async () => {
+                        'use server';
+                        await signOut();
+                    }}
                 >
-                    <button className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-100 border border-gray-600 border-dashed p-3 text-sm font-medium hover:bg-violet-200 hover:text-violet-600 hover:border-violet-600 hover:border-solid md:flex-none md:justify-start md:p-2 md:px-3">
+                    <button className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-100 border border-gray-600 border-dashed p-3 text-sm font-medium hover:bg-red-200 hover:text-red-600 hover:border-red-600 hover:border-solid md:flex-none md:justify-start md:p-2 md:px-3">
                         {/* <PowerIcon className="w-6" /> */}
                         <div className="hidden md:block">Sign Out</div>
                     </button>
