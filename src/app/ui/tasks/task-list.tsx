@@ -1,8 +1,8 @@
+import { fetchUsersTasks } from "@/app/lib/data";
 import TaskItem from "./task";
-import { fetchTasks } from "@/app/lib/data";
 
 export default async function TaskList() {
-    const tasks = await fetchTasks();
+    const tasks = await fetchUsersTasks();
 
     return (
         <div className="space-y-2 ">

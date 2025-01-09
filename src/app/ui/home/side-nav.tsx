@@ -1,6 +1,6 @@
 import Link from "next/link";
 import NavLinks from "./nav-links";
-import { signOut } from '@/../auth';
+import { signOut } from '@/auth';
 
 
 export default function SideNav() {

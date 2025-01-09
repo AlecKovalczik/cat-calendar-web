@@ -1,4 +1,5 @@
 import type { NextAuthConfig } from 'next-auth';
+import { createSession, deleteSession } from './app/lib/sessions';
 
 export const authConfig = {
     pages: {
@@ -6,14 +7,13 @@ export const authConfig = {
     },
     callbacks: {
         authorized({ auth, request: { nextUrl } }) {
-            console.log("authorized callback");
             const isLoggedIn = !!auth?.user;
-            const isInApp = nextUrl.pathname.startsWith('/home/tasks');
+            const isInApp = nextUrl.pathname.startsWith('/home');
             if (isInApp) {
                 if (isLoggedIn) return true;
                 return false; // Redirect unauthenticated users to login page
             } else if (isLoggedIn) {
-                return Response.redirect(new URL('/home/tasks', nextUrl));
+                return Response.redirect(new URL('/home', nextUrl));
             }
             return true;
         },

@@ -3,8 +3,9 @@
 import { z } from "zod";
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
-import { signIn } from "@/../auth";
+import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
+import { cookies } from "next/headers";
 
 ///////////
 // Users //
@@ -37,6 +38,7 @@ export async function authenticate(
 
 const TaskFormSchema = z.object({
     id: z.string(),
+    userId: z.string(),
     title: z.string({
         invalid_type_error: "Please enter a task title",
     }).min(1, { message: "Please enter a task title", }),
@@ -56,6 +58,7 @@ const UpdateTask = TaskFormSchema.omit({ id: true });
 
 export type State = {
     errors?: {
+        userId?: string[];
         title?: string[];
         description?: string[];
         status?: string[];
@@ -83,11 +86,15 @@ export async function createTask(prevState: State, formData: FormData) {
 
     // Prepare data for insertion into the database
     const { title, description, status } = validatedFields.data;
+    const userId = (await cookies()).get("session")?.value;
+        if (userId === undefined) {
+            throw Error("some how the user's session is undefined but they got here!?"); // should make this redirect to login
+        }
 
     try {
         await sql`
-            INSERT INTO tasks (title, description, status)
-            VALUES (${title}, ${description}, ${status})
+            INSERT INTO tasks (user_id, title, description, status)
+            VALUES (${userId}, ${title}, ${description}, ${status})
         `;
     } catch {
         return { message: "Database Error: Failed to Create Invoice." };
