@@ -51,10 +51,10 @@ const TaskFormSchema = z.object({
 });
 
 // Use zod to create the expected types
-const CreateTask = TaskFormSchema.omit({ id: true });
+const CreateTask = TaskFormSchema.omit({ id: true, userId: true });
 
 // Use zod to update the expected types
-const UpdateTask = TaskFormSchema.omit({ id: true });
+const UpdateTask = TaskFormSchema.omit({ id: true, userId: true });
 
 export type State = {
     errors?: {
@@ -67,8 +67,6 @@ export type State = {
 };
 
 export async function createTask(prevState: State, formData: FormData) {
-    console.log(formData);
-
     // Validate form fields using Zod
     const validatedFields = CreateTask.safeParse({
         title: formData.get('title'),
@@ -86,9 +84,8 @@ export async function createTask(prevState: State, formData: FormData) {
 
     // Prepare data for insertion into the database
     const { title, description, status } = validatedFields.data;
-    
     const session = await verifySession();
-    const userId = session?.userId.toString();
+    const userId = session?.userId.toString(); // might need something different here
 
     try {
         await sql`
