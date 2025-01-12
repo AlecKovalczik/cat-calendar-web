@@ -38,7 +38,9 @@ export async function authenticate(
 
 const TaskFormSchema = z.object({
     id: z.string(),
-    userId: z.string(),
+    userId: z.string({
+        invalid_type_error: "Please make sure you are logged in",
+    }),
     title: z.string({
         invalid_type_error: "Please enter a task title",
     }).min(1, { message: "Please enter a task title", }),
@@ -58,7 +60,6 @@ const UpdateTask = TaskFormSchema.omit({ id: true, userId: true });
 
 export type State = {
     errors?: {
-        userId?: string[];
         title?: string[];
         description?: string[];
         status?: string[];
@@ -70,7 +71,7 @@ export async function createTask(prevState: State, formData: FormData) {
     // Validate form fields using Zod
     const validatedFields = CreateTask.safeParse({
         title: formData.get('title'),
-        description: formData.get('description'),
+        description: formData.get('description') || "",
         status: formData.get('status') || "incomplete",
     });
 
@@ -97,7 +98,7 @@ export async function createTask(prevState: State, formData: FormData) {
     }
 
     revalidatePath('/home/tasks');
-    return { message: "Success: Task created." }
+    return { message: "Success: Task created." };
 }
 
 export async function updateTask(id: string, prevState: State, formData: FormData) {
