@@ -1,6 +1,5 @@
 import { sql } from "@vercel/postgres";
 import { Task } from "@/app/lib/definitions"
-import { verifySession } from "./dal";
 
 export async function fetchAllTasks() {
     try {
@@ -14,8 +13,7 @@ export async function fetchAllTasks() {
 }
 
 export async function fetchUsersTasks() {
-    const session = await verifySession();
-    const userId = session?.userId.toString();
+    const userId = "13D07535-C59E-4157-A011-F8D2EF4E0CBB";
 
     try {
         const data = await sql<Task>`

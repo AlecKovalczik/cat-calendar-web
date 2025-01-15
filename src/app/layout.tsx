@@ -1,6 +1,7 @@
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { UserProvider } from '@auth0/nextjs-auth0/client';
 import "./globals.css";
 
 const geistSans = Geist({
@@ -28,8 +29,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
-        <SpeedInsights/>
+        <UserProvider>
+          {children}
+        </UserProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
