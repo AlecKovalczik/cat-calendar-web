@@ -98,30 +98,26 @@ type LoginFormState =
     | undefined;
 
 export async function login(state: LoginFormState, formData: FormData) {
-    // Validate form fields
-    const validatedFields = SignupFormSchema.safeParse({
+    const validatedFields = LoginFormSchema.safeParse({
         email: formData.get('email'),
         password: formData.get('password'),
     });
 
-    // If any form fields are invalid, return early
     if (!validatedFields.success) {
         return {
             errors: validatedFields.error.flatten().fieldErrors,
         };
     }
 
-    // 2. Prepare data for insertion into database
     const { email, password } = validatedFields.data;
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const userId = await sql`
         SELECT id FROM users
-        WHERE email = ${email}, password = ${hashedPassword}
+        WHERE email = ${email} AND password = ${hashedPassword}
         LIMIT 1;
     `;
 
-    // 4. Create user session
     try {
         const id = userId.toString();
         await createSession(id);
@@ -130,6 +126,7 @@ export async function login(state: LoginFormState, formData: FormData) {
             message: 'An error occurred while parsing userId or creating a session.',
         };
     }
+
     redirect('/home');
 }
 
