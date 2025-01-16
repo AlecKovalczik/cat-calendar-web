@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
+import { verifySession } from "./dal";
 
 ///////////
 // Tasks //
@@ -57,7 +58,8 @@ export async function createTask(prevState: State, formData: FormData) {
 
     // Prepare data for insertion into the database
     const { title, description, status } = validatedFields.data;
-    const userId = "13D07535-C59E-4157-A011-F8D2EF4E0CBB"; // might need something different here
+    const session = await verifySession();
+    const userId = session?.userId.toString(); // might need something different here
 
     try {
         await sql`
