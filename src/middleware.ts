@@ -3,7 +3,7 @@ import { decrypt } from '@/app/lib/session'
 import { cookies } from 'next/headers'
  
 // 1. Specify protected and public routes
-const protectedRoutes = ['/home']
+const protectedRoutes = ['/home', '/home/tasks', '/home/friends']
 const publicRoutes = ['/login', '/signup', '/']
  
 export default async function middleware(req: NextRequest) {
@@ -16,9 +16,9 @@ export default async function middleware(req: NextRequest) {
   const cookie = (await cookies()).get('session')?.value
   const session = await decrypt(cookie)
  
-  // 4. Redirect to /login if the user is not authenticated
+  // 4. Redirect to / if the user is not authenticated
   if (isProtectedRoute && !session?.userId) {
-    return NextResponse.redirect(new URL('/login', req.nextUrl))
+    return NextResponse.redirect(new URL('/', req.nextUrl))
   }
  
   // 5. Redirect to /home if the user is authenticated
