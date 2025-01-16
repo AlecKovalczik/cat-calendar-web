@@ -32,7 +32,7 @@ export const getUser = cache(async () => {
         const user = data.rows.at(0);
 
         return user
-    } catch (error) {
+    } catch {
         console.log('Failed to fetch user')
         return null
     }

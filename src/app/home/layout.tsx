@@ -2,7 +2,11 @@ import SideNav from "@/app/ui/home/side-nav";
 
 export const experimental_ppr = true;
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
 
   return (
     <div className="flex h-screen flex-col md:flex-row md:overflow-hidden bg-gray-100">
