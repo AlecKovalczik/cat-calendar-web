@@ -1,5 +1,5 @@
 export type SessionPayload = {
-    userId: string,
+    sub: string,
     expiresAt: Date,
 }
 

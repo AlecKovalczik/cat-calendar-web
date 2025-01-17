@@ -1,5 +1,6 @@
 import { sql } from "@vercel/postgres";
 import { Task } from "@/app/lib/definitions"
+import { getUser } from "./dal";
 
 export async function fetchAllTasks() {
     try {
@@ -13,12 +14,19 @@ export async function fetchAllTasks() {
 }
 
 export async function fetchUsersTasks() {
-    const userId = "13D07535-C59E-4157-A011-F8D2EF4E0CBB";
+    const user = await getUser();
+        if (!user) {
+            return {
+                message: 'No user session found.'
+            };
+        }
+    
+    const id: string = user.id
 
     try {
         const data = await sql<Task>`
             SELECT * FROM tasks 
-            WHERE user_id = ${userId};
+            WHERE user_id = ${id};
         `;
 
         return data.rows;

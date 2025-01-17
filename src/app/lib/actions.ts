@@ -3,7 +3,7 @@
 import { z } from "zod";
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
-import { verifySession } from "./dal";
+import { getUser } from "./dal";
 
 ///////////
 // Tasks //
@@ -58,13 +58,19 @@ export async function createTask(prevState: State, formData: FormData) {
 
     // Prepare data for insertion into the database
     const { title, description, status } = validatedFields.data;
-    const session = await verifySession();
-    const userId = session?.userId.toString(); // might need something different here
+    const user = await getUser();
+    if (!user) {
+        return {
+            message: 'No user session found.'
+        };
+    }
+
+    const id: string = user.id
 
     try {
         await sql`
             INSERT INTO tasks (user_id, title, description, status)
-            VALUES (${userId}, ${title}, ${description}, ${status})
+            VALUES (${id}, ${title}, ${description}, ${status})
         `;
     } catch {
         return { message: "Database Error: Failed to Create Invoice." };

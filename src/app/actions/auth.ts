@@ -5,6 +5,7 @@ import { sql } from '@vercel/postgres';
 import { createSession, deleteSession } from '../lib/session';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
+import { User } from "../lib/definitions";
 
 const SignupFormSchema = z.object({
     username: z
@@ -102,22 +103,19 @@ export async function login(state: LoginFormState, formData: FormData) {
     }
 
     const { email, password } = validatedFields.data;
-    const hashedPassword = await bcrypt.hash(password, 10);
 
-    const userId = await sql`
-        SELECT id FROM users
-        WHERE email = ${email} AND password = ${hashedPassword}
-        LIMIT 1;
-    `;
+    const userQuery = await sql<User>`SELECT * FROM users WHERE email=${email}`;
+    const user = userQuery.rows[0];
+    if (!user) return {
+        message: "No user with that email address found."
+    };
 
-    try {
-        const id = userId.toString();
-        await createSession(id);
-    } catch {
-        return {
-            message: 'An error occurred while parsing userId or creating a session.',
-        };
-    }
+    const passwordsMatch = await bcrypt.compare(password, user.password);
+    if (!passwordsMatch) return {
+            message: "Incorrect email or password."
+        }
+
+    createSession(user.id);
 
     redirect('/home');
 }
