@@ -23,7 +23,7 @@ export const getUser = cache(async () => {
     try {
         const idString = session.userId;
         const data = await sql`
-            SELECT id, username, email FROM users
+            SELECT id, username FROM users
             WHERE id = ${idString};
         `;
 
