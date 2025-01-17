@@ -115,12 +115,12 @@ export async function login(state: LoginFormState, formData: FormData) {
             message: "Incorrect email or password."
         }
 
-    createSession(user.id);
+    await createSession(user.id);
 
     redirect('/home');
 }
 
 export async function logout() {
-    deleteSession();
+    await deleteSession();
     redirect('/');
 }
