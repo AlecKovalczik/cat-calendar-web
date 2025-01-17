@@ -1,3 +1,5 @@
+'use client';
+
 import Link from "next/link";
 import NavLinks from "./nav-links";
 import { logout } from "@/app/actions/auth";
@@ -16,10 +18,7 @@ export default function SideNav() {
             <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
                 <NavLinks></NavLinks>
                 <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div>
-                <form action={logout} className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-100 border border-gray-600 border-dashed p-3 text-sm font-medium hover:bg-red-200 hover:text-red-600 hover:border-red-600 hover:border-solid md:flex-none md:justify-start md:p-2 md:px-3">
-                    {/* <PowerIcon className="w-6" /> */}
-                    <input type="submit" value="Sign Out" className="hidden md:block"></input>
-                </form>
+                <button onClick={logout} className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-100 border border-gray-600 border-dashed p-3 text-sm font-medium hover:bg-red-200 hover:text-red-600 hover:border-red-600 hover:border-solid md:flex-none md:justify-start md:p-2 md:px-3">Sign out</button>
             </div>
         </div>
     )
