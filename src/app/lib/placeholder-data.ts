@@ -4,13 +4,11 @@ const users = [
     {
         id: "13D07535-C59E-4157-A011-F8D2EF4E0CBB",
         username: "testuser1",
-        email: "user1@test.com",
         password: "Password123!",
     },
     {
         id: "CC27C14A-0ACF-4F4A-A6C9-D45682C144B9",
         username: "testuser2",
-        email: "user2@test.com",
         password: "Password123!",
     },
 ];

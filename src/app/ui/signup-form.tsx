@@ -13,13 +13,6 @@ export default function SignupForm() {
         <input id="username" name="username" placeholder="Username" />
       </div>
       {state?.errors?.username && <p>{state.errors.username}</p>}
- 
-      <div>
-        <label htmlFor="email">Email</label>
-        <input id="email" name="email" placeholder="Email" />
-      </div>
-      {state?.errors?.email && <p>{state.errors.email}</p>}
- 
       <div>
         <label htmlFor="password">Password</label>
         <input id="password" name="password" type="password" />

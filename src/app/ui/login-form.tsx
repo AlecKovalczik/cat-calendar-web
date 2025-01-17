@@ -9,11 +9,10 @@ export default function SignupForm() {
   return (
     <form action={action}>
       <div>
-        <label htmlFor="email">Email</label>
-        <input id="email" name="email" placeholder="Email" />
+        <label htmlFor="username">Username</label>
+        <input id="username" name="username" placeholder="Username" />
       </div>
-      {state?.errors?.email && <p>{state.errors.email}</p>}
- 
+      {state?.errors?.username && <p>{state.errors.username}</p>}
       <div>
         <label htmlFor="password">Password</label>
         <input id="password" name="password" type="password" />

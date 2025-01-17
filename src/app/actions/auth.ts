@@ -12,7 +12,6 @@ const SignupFormSchema = z.object({
         .string()
         .min(2, { message: 'Username must be at least 2 characters long.' })
         .trim(),
-    email: z.string().email({ message: 'Please enter a valid email.' }).trim(),
     password: z
         .string()
         .min(8, { message: 'Be at least 8 characters long' })
@@ -28,7 +27,6 @@ type SignupFormState =
     | {
         errors?: {
             username?: string[]
-            email?: string[]
             password?: string[]
         }
         message?: string
@@ -38,7 +36,6 @@ type SignupFormState =
 export async function signup(state: SignupFormState, formData: FormData) {
     const validatedFields = SignupFormSchema.safeParse({
         username: formData.get('username'),
-        email: formData.get('email'),
         password: formData.get('password'),
     });
 
@@ -48,18 +45,18 @@ export async function signup(state: SignupFormState, formData: FormData) {
         };
     }
 
-    const { username, email, password } = validatedFields.data;
+    const { username, password } = validatedFields.data;
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await sql`
-        INSERT INTO users (username, email, password)
-        VALUES (${username}, ${email}, ${hashedPassword});
+        INSERT INTO users (username, password)
+        VALUES (${username}, ${hashedPassword});
     `;
 
-    const userQuery = await sql<User>`SELECT * FROM users WHERE email=${email}`;
+    const userQuery = await sql<User>`SELECT * FROM users WHERE username=${username}`;
     const user = userQuery.rows[0];
     if (!user) return {
-        message: "No user with that email address found."
+        message: "No user with that username address found."
     };
 
     try {
@@ -74,8 +71,19 @@ export async function signup(state: SignupFormState, formData: FormData) {
 }
 
 const LoginFormSchema = z.object({
-    email: z.string().email({ message: 'Please enter a valid email.' }).trim(),
-    password: z.string()
+    username: z
+        .string()
+        .min(2, { message: 'Username must be at least 2 characters long.' })
+        .trim(),
+    password: z
+        .string()
+        .min(8, { message: 'Be at least 8 characters long' })
+        .regex(/[a-zA-Z]/, { message: 'Contain at least one letter.' })
+        .regex(/[0-9]/, { message: 'Contain at least one number.' })
+        .regex(/[^a-zA-Z0-9]/, {
+            message: 'Contain at least one special character.',
+        })
+        .trim(),
 });
 
 type LoginFormState =
@@ -90,7 +98,7 @@ type LoginFormState =
 
 export async function login(state: LoginFormState, formData: FormData) {
     const validatedFields = LoginFormSchema.safeParse({
-        email: formData.get('email'),
+        username: formData.get('username'),
         password: formData.get('password'),
     });
 
@@ -100,18 +108,18 @@ export async function login(state: LoginFormState, formData: FormData) {
         };
     }
 
-    const { email, password } = validatedFields.data;
+    const { username, password } = validatedFields.data;
 
-    const userQuery = await sql<User>`SELECT * FROM users WHERE email=${email}`;
+    const userQuery = await sql<User>`SELECT * FROM users WHERE username=${username}`;
     const user = userQuery.rows[0];
     if (!user) return {
-        message: "No user with that email address found."
+        message: "No user with that username address found."
     };
 
     const passwordsMatch = await bcrypt.compare(password, user.password);
     if (!passwordsMatch) return {
-            message: "Incorrect email or password."
-        }
+        message: "Incorrect username or password."
+    }
 
     await createSession(user.id);
 
