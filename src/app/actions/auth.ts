@@ -51,21 +51,19 @@ export async function signup(state: SignupFormState, formData: FormData) {
     const { username, email, password } = validatedFields.data;
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const userId = await sql`
+    await sql`
         INSERT INTO users (username, email, password)
-        VALUES (${username}, ${email}, ${hashedPassword})
-        RETURNING id;
+        VALUES (${username}, ${email}, ${hashedPassword});
     `;
 
-    if (!userId) {
-        return {
-            message: 'An error occurred while creating your account.',
-        };
-    }
+    const userQuery = await sql<User>`SELECT * FROM users WHERE email=${email}`;
+    const user = userQuery.rows[0];
+    if (!user) return {
+        message: "No user with that email address found."
+    };
 
     try {
-        const id = userId.toString();
-        await createSession(id);
+        await createSession(user.id);
     } catch {
         return {
             message: 'An error occurred while parsing userId or creating a session.',
