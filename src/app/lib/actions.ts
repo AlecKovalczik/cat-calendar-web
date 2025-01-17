@@ -4,6 +4,7 @@ import { z } from "zod";
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { getUser } from "./dal";
+import { redirect } from "next/navigation";
 
 ///////////
 // Tasks //
@@ -58,12 +59,10 @@ export async function createTask(prevState: State, formData: FormData) {
 
     // Prepare data for insertion into the database
     const { title, description, status } = validatedFields.data;
+    
     const user = await getUser();
-    if (!user) {
-        return {
-            message: 'No user session found.'
-        };
-    }
+    
+    if (user === null) redirect('/');
 
     const id: string = user.id
 

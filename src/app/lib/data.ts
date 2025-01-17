@@ -1,6 +1,7 @@
 import { sql } from "@vercel/postgres";
 import { Task } from "@/app/lib/definitions"
 import { getUser } from "./dal";
+import { redirect } from "next/navigation";
 
 export async function fetchAllTasks() {
     try {
@@ -15,13 +16,10 @@ export async function fetchAllTasks() {
 
 export async function fetchUsersTasks() {
     const user = await getUser();
-        if (!user) {
-            return {
-                message: 'No user session found.'
-            };
-        }
-    
-    const id: string = user.id
+
+    if (user === null) redirect('/');
+
+    const id: string = user.id;
 
     try {
         const data = await sql<Task>`

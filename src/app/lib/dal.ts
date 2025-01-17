@@ -19,17 +19,16 @@ export const verifySession = cache(async () => {
 
 export const getUser = cache(async () => {
     const session = await verifySession()
-    if (!session) return null
 
     try {
-        const idString = session.userId.toString();
+        const idString = session.userId;
         const data = await sql`
-            SELECT id, name, email FROM users
-            WHERE id = ${idString}
-            LIMIT 1;
+            SELECT id, username, email FROM users
+            WHERE id = ${idString};
         `;
 
-        const user = data.rows.at(0);
+        const user = data.rows[0];
+        if (!user) return null
 
         return user
     } catch {
