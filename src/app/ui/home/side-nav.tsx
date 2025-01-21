@@ -1,18 +1,24 @@
-'use client';
-
 import Link from "next/link";
 import NavLinks from "./nav-links";
 import { logout } from "@/app/actions/auth";
+import { getUser } from "@/app/lib/dal";
+import { redirect } from "next/navigation";
 
-export default function SideNav() {
+export default async function SideNav() {
+    const user = await getUser();
+    if (user === null) redirect('/');
+
     return (
         <div className="flex h-full flex-col px-3 py-4 md:px-2 bg-white border-r border-black shadow-[4px_4px_0_0_rgb(0,0,0,.3)] shadow-stone-400">
             <Link
-                className="mb-2 flex h-20 items-end justify-start rounded-md bg-violet-600 p-4 md:h-40 border border-black"
+                className="mb-2 flex flex-col h-20 text-right justify-end rounded-md bg-violet-600 p-4 md:h-40 border border-black"
                 href="/"
             >
-                <div className="w-32 text-white md:w-40">
-                    <h1 className="text-2xl">Cat Calendar</h1>
+                <div className="w-fill text-white">
+                    <h1 className="text-3xl">Cat Calendar</h1>
+                </div>
+                <div className="w-fill text-white">
+                    <h2 className="text-lg">Hello <b>{user.username}</b></h2>
                 </div>
             </Link>
             <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">

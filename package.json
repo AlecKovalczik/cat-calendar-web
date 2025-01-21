@@ -21,6 +21,7 @@
     "react-dom": "^19.0.0",
     "reactstrap": "^9.2.3",
     "sql": "^0.78.0",
+    "use-debounce": "^10.0.4",
     "zod": "^3.24.1"
   },
   "devDependencies": {
