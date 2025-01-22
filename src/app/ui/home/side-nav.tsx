@@ -9,9 +9,9 @@ export default async function SideNav() {
     if (user === null) redirect('/');
 
     return (
-        <div className="flex h-full flex-col px-3 py-4 md:px-2 bg-white border-r border-black shadow-[4px_4px_0_0_rgb(0,0,0,.3)] shadow-stone-400">
+        <div className="flex h-full flex-col px-3 py-4 md:px-2 bg-white border-r border-black"> {/* shadow-[4px_4px_0_0_rgb(0,0,0,.3)] shadow-stone-400 */}
             <Link
-                className="mb-2 flex flex-col h-20 text-right justify-end rounded-md bg-violet-600 p-4 md:h-40 border border-black"
+                className="mb-2 flex flex-col h-20 text-left justify-end rounded-md bg-violet-600 p-4 md:h-40 border border-black"
                 href="/"
             >
                 <div className="w-fill text-white">
