@@ -1,6 +1,7 @@
 import TaskList from "@/app/ui/tasks/task-list"
 import AddModal from "@/app/ui/tasks/add-modal"
 import Search from "@/app/ui/search"
+import { Suspense } from "react";
 
 export default function TasksPage(props: {
     searchParams?: Promise<{
@@ -17,7 +18,9 @@ export default function TasksPage(props: {
                 </div>
                 <div className="flex grow flex-row space-x-2">
                     <div className="grow">
-                        <Search placeholder="Search Tasks"></Search>
+                        <Suspense>
+                            <Search placeholder="Search Tasks"></Search>
+                        </Suspense>
                     </div>
                     {/* <button className="border border-black rounded-md shadow-[4px_4px_0_0_rgb(0,0,0,.3)] shadow-stone-400"><b>Replace this with view options</b></button>  */}
                 </div>
