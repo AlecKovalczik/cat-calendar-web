@@ -13,6 +13,23 @@ const users = [
     },
 ];
 
+const cats = [
+    {
+        userId: "13D07535-C59E-4157-A011-F8D2EF4E0CBB",
+        name: "Niko",
+        coatColor: "brown",
+        coatType: "tabby",
+        coatLength: "short",
+    },
+    {
+        userId: "CC27C14A-0ACF-4F4A-A6C9-D45682C144B9",
+        name: "Bean",
+        coatColor: "brown",
+        coatType: "tuxedo",
+        coatLength: "short",
+    },
+];
+
 const tasks = [
     {
         userId: users[0].id,
@@ -40,4 +57,4 @@ const tasks = [
     },
 ];
 
-export { users, tasks };
+export { users, tasks, cats };
