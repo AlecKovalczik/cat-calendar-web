@@ -11,6 +11,7 @@ export default async function CatPage() {
         <main>
             <h1>Cat Page</h1>
             <h2>{name}</h2>
+            <p>If I change this here, does it cause vercel to try a new deployment when I push, or is that only for pushes to main?</p>
 
         </main>
     )
