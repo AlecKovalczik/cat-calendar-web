@@ -74,15 +74,17 @@ async function seedCats() {
     CREATE TABLE IF NOT EXISTS cats (
       id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
       user_id UUID NOT NULL,
-      alive BOOLEAN DEFAULT TRUE,
-      birthday DATE DEFAULT NOW(),
-      hunger NUMBER DEFAULT 0,
-      name VARCHAR,
-      coat_color VARCHAR,
-      coat_type VARCHAR,
-      coat_length NUMBER,
+      name VARCHAR(255) NOT NULL,
+      coat_color VARCHAR(255) NOT NULL,
+      coat_type VARCHAR(255) NOT NULL,
+      coat_length VARCHAR(255) NOT NULL
     );
-  `
+  `;
+
+  // alive BOOLEAN DEFAULT TRUE,
+  // birthday DATE DEFAULT NOW(),
+  // deadline NUMBER DEFAULT 0,
+  // frequency NUMBER DEFAULT 7,
 
   const insertedCats = await Promise.all(
     cats.map((cat) => {
@@ -100,10 +102,12 @@ async function seedCats() {
 export async function GET() {
   try {
     await client.sql`BEGIN`;
-    // await client.sql`DROP TABLE users`;
-    // await client.sql`DROP TABLE tasks`;
+    await client.sql`DROP TABLE users`;
+    await client.sql`DROP TABLE tasks`;
+    await client.sql`DROP TABLE cats`;
     await seedUsers();
     await seedTasks();
+    await seedCats();
     await client.sql`COMMIT`;
 
     return Response.json({ message: 'Database seeded successfully' });

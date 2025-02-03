@@ -1,4 +1,4 @@
-import 'server-only'
+import 'server-only';
 
 import { cookies } from 'next/headers'
 import { decrypt } from '@/app/lib/session'
@@ -7,18 +7,18 @@ import { redirect } from 'next/navigation'
 import { sql } from '@vercel/postgres'
 
 export const verifySession = cache(async () => {
-    const cookie = (await cookies()).get('session')?.value
-    const session = await decrypt(cookie)
+    const cookie = (await cookies()).get('session')?.value;
+    const session = await decrypt(cookie);
 
     if (!session?.sub) {
-        redirect('/login')
+        redirect('/login');
     }
 
-    return { isAuth: true, userId: session.sub }
+    return { isAuth: true, userId: session.sub };
 })
 
 export const getUser = cache(async () => {
-    const session = await verifySession()
+    const session = await verifySession();
 
     try {
         const idString = session.userId;
@@ -28,11 +28,31 @@ export const getUser = cache(async () => {
         `;
 
         const user = data.rows[0];
-        if (!user) return null
+        if (!user) return null;
 
-        return user
+        return user;
     } catch {
-        console.log('Failed to fetch user')
-        return null
+        console.log('Failed to fetch user');
+        return null;
+    }
+})
+
+export const getCat = cache(async () => {
+    const session = await verifySession();
+
+    try {
+        const idString = session.userId;
+        const data = await sql`
+            SELECT * FROM cats
+            WHERE user_id = ${idString} 
+        `;
+
+        const cat = data.rows[0];
+        if (!cat) return null;
+
+        return cat;
+    } catch {
+        console.log('Failed to fetch cat');
+        return null;
     }
 })
