@@ -33,7 +33,7 @@ export default function SignupForm() {
       <Link href="/signup" className="text-black hover:text-violet-600">Create an account</Link>
       <button disabled={pending} type="submit" className="h-12 border border-dashed border-black rounded-md bg-gray-100 hover:border-solid hover:border-violet-600 hover:bg-violet-100 hover:text-violet-800">
 
-        Login
+        Log in
       </button>
     </form>
   )
