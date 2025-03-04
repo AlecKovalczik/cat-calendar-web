@@ -3,7 +3,7 @@ import { getCat } from "../lib/dal"
 
 export default async function CatPage() {
     const cat = await getCat();
-    if (cat === null) redirect("/home/create");
+    if (cat === null) redirect("/home/adopt");
     const name = cat.name
 
 
