@@ -13,16 +13,16 @@ import { redirect } from "next/navigation";
 const TaskFormSchema = z.object({
     id: z.string(),
     userId: z.string({
-        invalid_type_error: "Please make sure you are logged in",
+        invalid_type_error: "Please make sure you are logged in.",
     }),
     title: z.string({
-        invalid_type_error: "Please enter a task title",
-    }).min(1, { message: "Please enter a task title", }),
+        invalid_type_error: "Please enter a task title.",
+    }).min(1, { message: "Please enter a task title.", }),
     description: z.string({
-        invalid_type_error: "Please enter a task description",
+        invalid_type_error: "Please enter a task description.",
     }),
     status: z.enum(["incomplete", "complete"], {
-        invalid_type_error: "Please select a task status",
+        invalid_type_error: "Please select a task status.",
     }).default("incomplete"),
 });
 
