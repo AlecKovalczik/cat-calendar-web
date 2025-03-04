@@ -11,12 +11,12 @@ export default function SignupForm() {
     <form action={action} className="flex grow flex-col w-full px-4 pb-4 text-xl">
       <div className="px-8">
         <label htmlFor="username">Username:</label><br></br>
-        <input id="username" name="username" placeholder="Username" className="w-full px-1 border border-black rounded-md bg-gray-100" />
+        <input id="username" name="username" placeholder="Enter a username" className="w-full px-1 border border-black rounded-md bg-gray-100" />
         {state?.errors?.username && <p className="text-red-600 text-sm">{state.errors.username}</p>}
       </div>
       <div className="px-8">
         <label htmlFor="password">Password:</label><br></br>
-        <input id="password" name="password" type="password" placeholder="Password" className="w-full px-1 border border-black rounded-md bg-gray-100" />
+        <input id="password" name="password" type="password" placeholder="Enter a password" className="w-full px-1 border border-black rounded-md bg-gray-100" />
         {state?.errors?.password && (
           <div className="text-red-600 text-sm">
             <p>Password must:</p>
