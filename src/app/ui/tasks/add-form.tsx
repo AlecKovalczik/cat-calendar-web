@@ -1,6 +1,6 @@
 'use client';
 
-import { createTask, State } from "@/app/lib/actions"
+import { createTask, State } from "@/app/actions/tasks"
 import { useActionState, useEffect } from "react";
 
 export default function AddForm({ close }: { close: () => void }) {

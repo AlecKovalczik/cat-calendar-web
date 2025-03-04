@@ -3,7 +3,7 @@
 import { z } from "zod";
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
-import { getUser } from "./dal";
+import { getUser } from "../lib/dal";
 import { redirect } from "next/navigation";
 
 ///////////
@@ -72,7 +72,7 @@ export async function createTask(prevState: State, formData: FormData) {
             VALUES (${id}, ${title}, ${description}, ${status})
         `;
     } catch {
-        return { message: "Database Error: Failed to Create Invoice." };
+        return { message: "Database Error: Failed to Create Task." };
     }
 
     revalidatePath('/home/tasks');

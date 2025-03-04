@@ -1,7 +1,7 @@
 'use client';
 
 import { useActionState, useState } from "react";
-import { deleteTask } from "@/app/lib/actions";
+import { deleteTask } from "@/app/actions/tasks";
 import Image  from "next/image";
 
 export function TaskStatusCheckbox({size}: {size: number}) {

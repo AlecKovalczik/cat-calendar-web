@@ -1,7 +1,7 @@
 'use client';
 
 import { Task } from "@/app/lib/definitions";
-import { updateTask, State } from "@/app/lib/actions"
+import { updateTask, State } from "@/app/actions/tasks"
 import { useActionState, useEffect } from "react";
 import { DeleteTaskButton } from "./buttons";
 
