@@ -14,7 +14,7 @@ const SignupFormSchema = z.object({
         .trim(),
     password: z
         .string()
-        .min(8, { message: 'Be at least 8 characters long' })
+        .min(8, { message: 'Be at least 8 characters long.' })
         .regex(/[a-zA-Z]/, { message: 'Contain at least one letter.' })
         .regex(/[0-9]/, { message: 'Contain at least one number.' })
         .regex(/[^a-zA-Z0-9]/, {
@@ -56,14 +56,14 @@ export async function signup(state: SignupFormState, formData: FormData) {
     const userQuery = await sql<User>`SELECT * FROM users WHERE username=${username}`;
     const user = userQuery.rows[0];
     if (!user) return {
-        message: "No user with that username address found."
+        message: "Failed to add the user to the database."
     };
 
     try {
         await createSession(user.id);
     } catch {
         return {
-            message: 'An error occurred while parsing userId or creating a session.',
+            message: "An error occurred while logging in.",
         };
     }
 
@@ -77,7 +77,7 @@ const LoginFormSchema = z.object({
         .trim(),
     password: z
         .string()
-        .min(8, { message: 'Be at least 8 characters long' })
+        .min(8, { message: 'Be at least 8 characters long.' })
         .regex(/[a-zA-Z]/, { message: 'Contain at least one letter.' })
         .regex(/[0-9]/, { message: 'Contain at least one number.' })
         .regex(/[^a-zA-Z0-9]/, {
@@ -88,10 +88,7 @@ const LoginFormSchema = z.object({
 
 type LoginFormState =
     | {
-        errors?: {
-            email?: string[]
-            password?: string[]
-        }
+        error?: string
         message?: string
     }
     | undefined;
@@ -104,7 +101,7 @@ export async function login(state: LoginFormState, formData: FormData) {
 
     if (!validatedFields.success) {
         return {
-            errors: validatedFields.error.flatten().fieldErrors,
+            error: "Incorrect username or password.",
         };
     }
 
@@ -113,20 +110,32 @@ export async function login(state: LoginFormState, formData: FormData) {
     const userQuery = await sql<User>`SELECT * FROM users WHERE username=${username}`;
     const user = userQuery.rows[0];
     if (!user) return {
-        message: "No user with that username address found."
+        error: "Incorrect username or password."
     };
 
     const passwordsMatch = await bcrypt.compare(password, user.password);
     if (!passwordsMatch) return {
-        message: "Incorrect username or password."
+        error: "Incorrect username or password."
     }
 
-    await createSession(user.id);
+    try {
+        await createSession(user.id);
+    } catch {
+        return {
+            error: "An error occurred while logging in."
+        };
+    }
 
     redirect('/home');
 }
 
 export async function logout() {
-    await deleteSession();
+    try {
+        await deleteSession();
+    } catch {
+        return {
+            error: "An error occurred while logging out."
+        };
+    }
     redirect('/');
 }
