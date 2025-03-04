@@ -1,11 +1,11 @@
 'use client';
 
-
+import createCat from "@/app/actions/cat";
 import Link from "next/link";
 import { useActionState } from "react";
 
 export default function AdoptForm() {
-    const [state, action, pending] = useActionState(adopt, undefined)
+    const [state, action, pending] = useActionState(createCat, undefined)
 
     return (
         <form action={action} className="flex grow flex-col w-full px-4 pb-4 text-xl">

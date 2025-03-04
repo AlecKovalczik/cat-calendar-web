@@ -15,50 +15,35 @@ const TaskFormSchema = z.object({
     userId: z.string({
         invalid_type_error: "Please make sure you are logged in",
     }),
-    title: z.string({
-        invalid_type_error: "Please enter a task title",
-    }).min(1, { message: "Please enter a task title", }),
-    description: z.string({
-        invalid_type_error: "Please enter a task description",
-    }),
-    status: z.enum(["incomplete", "complete"], {
-        invalid_type_error: "Please select a task status",
-    }).default("incomplete"),
+    name: z.string()
 });
 
 // Use zod to create the expected types
-const CreateTask = TaskFormSchema.omit({ id: true, userId: true });
-
-// Use zod to update the expected types
-const UpdateTask = TaskFormSchema.omit({ id: true, userId: true });
+const CreateCat = TaskFormSchema.omit({ id: true, userId: true });
 
 export type State = {
     errors?: {
-        title?: string[];
-        description?: string[];
-        status?: string[];
+        name?: string[];
     };
     message?: string | null;
 };
 
-export async function createTask(prevState: State, formData: FormData) {
+export async function createCat(prevState: State, formData: FormData) {
     // Validate form fields using Zod
-    const validatedFields = CreateTask.safeParse({
-        title: formData.get('title'),
-        description: formData.get('description') || "",
-        status: formData.get('status') || "incomplete",
+    const validatedFields = CreateCat.safeParse({
+        
     });
 
     // If form validation fails, return errors early. Otherwise, continue.
     if (!validatedFields.success) {
         return {
             errors: validatedFields.error.flatten().fieldErrors,
-            message: 'Missing Fields. Failed to Create Task.',
+            message: 'Missing Fields. Failed to Create Cat.',
         };
     }
 
     // Prepare data for insertion into the database
-    const { title, description, status } = validatedFields.data;
+    const {  } = validatedFields.data;
     
     const user = await getUser();
     
@@ -68,8 +53,8 @@ export async function createTask(prevState: State, formData: FormData) {
 
     try {
         await sql`
-            INSERT INTO tasks (user_id, title, description, status)
-            VALUES (${id}, ${title}, ${description}, ${status})
+            INSERT INTO tasks (user_id, )
+            VALUES (${id}, )
         `;
     } catch {
         return { message: "Database Error: Failed to Create Cat." };
