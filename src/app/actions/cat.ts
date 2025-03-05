@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 import { getUser } from "../lib/dal";
 import { redirect } from "next/navigation";
 
-const TaskFormSchema = z.object({
+const CatFormSchema = z.object({
     id: z.string(),
     userId: z.string({
         invalid_type_error: "Please make sure you are logged in.",
@@ -26,7 +26,7 @@ const TaskFormSchema = z.object({
 });
 
 // Use zod to create the expected types
-const CreateCat = TaskFormSchema.omit({ id: true, userId: true });
+const CreateCat = CatFormSchema.omit({ id: true, userId: true });
 
 export type State = {
     errors?: {
@@ -56,18 +56,18 @@ export async function createCat(prevState: State, formData: FormData) {
     }
 
     // Prepare data for insertion into the database
-    const {  } = validatedFields.data;
+    const { name, coat_length, coat_type, coat_color } = validatedFields.data;
     
     const user = await getUser();
     
     if (user === null) redirect('/');
 
-    const id: string = user.id
+    const userId: string = user.id
 
     try {
         await sql`
-            INSERT INTO tasks (user_id, )
-            VALUES (${id}, )
+            INSERT INTO cats (user_id, name, coat_length, coat_type, coat_color)
+            VALUES (${userId}, ${name}, ${coat_length}, ${coat_type}, ${coat_color})
         `;
     } catch {
         return { message: "Database Error: Failed to Create Cat." };
