@@ -15,6 +15,7 @@ export default function AdoptForm() {
                     <div>
                         <label htmlFor="name">Name:</label><br></br>
                         <input id="name" name="name" placeholder="Give your cat a name" className="w-full px-1 border border-black rounded-md bg-stone-100 hover:bg-stone-200" />
+                        {state?.errors?.name && <p className="text-red-600 text-sm">{state.errors.name}</p>}
                     </div>
                     <div>
                         <label htmlFor="coat_length">Coat Length:</label><br></br>
@@ -23,6 +24,7 @@ export default function AdoptForm() {
                             <option value="short">Short</option>
                             <option value="hairless">Hairless</option>
                         </select>
+                        {state?.errors?.coat_length && <p className="text-red-600 text-sm">{state.errors.coat_length}</p>}
                     </div>
                     <div>
                         <label htmlFor="coat_type">Coat Type:</label><br></br>
@@ -34,6 +36,7 @@ export default function AdoptForm() {
                             <option value="tortoiseshell">Tortoiseshell</option>
                             <option value="siamese">Siamese</option>
                         </select>
+                        {state?.errors?.coat_type && <p className="text-red-600 text-sm">{state.errors.coat_type}</p>}
                     </div>
                     <div>
                         <label htmlFor="coat_color">Coat Color:</label><br></br>
@@ -45,6 +48,7 @@ export default function AdoptForm() {
                             <option value="orange">Orange</option>
                             <option value="silver">Silver</option>
                         </select>
+                        {state?.errors?.coat_color && <p className="text-red-600 text-sm">{state.errors.coat_color}</p>}
                     </div>
                 </div>
                 <div className="grow"></div>
