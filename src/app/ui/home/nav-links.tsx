@@ -8,7 +8,7 @@ const links = [
     { name: "Cat", href: "/home/cat" },
     { name: "Tasks", href: "/home/tasks" },
     { name: "Friends", href: "/home/friends" },
-    { name: "Profile", href: "/home/profile" },
+    { name: "Settings", href: "/home/settings" },
 ]
 
 export default function NavLinks() {
