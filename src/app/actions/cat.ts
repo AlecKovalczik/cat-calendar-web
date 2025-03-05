@@ -13,7 +13,16 @@ const TaskFormSchema = z.object({
     }),
     name: z.string({
         invalid_type_error: "Please enter a name for your cat.",
-    }).min(1, { message: "Please enter a task title.", }),
+    }).min(1, { message: "Please enter a name for your cat.", }),
+    coat_length: z.enum(["long", "short", "hairless"], {
+        invalid_type_error: "Please select a coat type.",
+    }).default("long"),
+    coat_type: z.enum(["solid", "tabby", "tuxedo", "calico", "tortoiseshell", "siamese"], {
+        invalid_type_error: "Please select a task status.",
+    }).default("solid"),
+    coat_color: z.enum(["gray", "brown", "black", "white", "orange", "silver"], {
+        invalid_type_error: "Please select a task status.",
+    }).default("gray"),
 });
 
 // Use zod to create the expected types
@@ -21,7 +30,10 @@ const CreateCat = TaskFormSchema.omit({ id: true, userId: true });
 
 export type State = {
     errors?: {
-        name?: string | undefined;
+        name?: string[] | undefined;
+        coat_length?: string[] | undefined;
+        coat_type?: string[] | undefined;
+        coat_color?: string[] | undefined;
     };
     message?: string | null;
 };
@@ -29,7 +41,10 @@ export type State = {
 export async function createCat(prevState: State, formData: FormData) {
     // Validate form fields using Zod
     const validatedFields = CreateCat.safeParse({
-        
+        name: formData.get('name'),
+        coat_length: formData.get('coat_length'),
+        coat_type: formData.get('coat_type'),
+        coat_color: formData.get('coat_color'),
     });
 
     // If form validation fails, return errors early. Otherwise, continue.
