@@ -4,6 +4,7 @@ import { updateCat, deleteCat, State } from "@/app/actions/cat";
 import { useActionState } from "react";
 import { Cat } from "@/app/lib/definitions"
 import Link from "next/link";
+import Image from "next/image";
 
 export default function CatInfoForm({ cat }: { cat: Cat }) {
     const initialState: State = { message: null, errors: {} };
@@ -56,7 +57,7 @@ export default function CatInfoForm({ cat }: { cat: Cat }) {
                 <div className="grow"></div>
                 <div className="w-2/5">
                     {/* Cat picture should be automatically changed based on user selection */}
-                    <img src="/bad_cat.png" className="object-contain"></img>
+                    <Image src="/bad_cat.png" className="object-contain" alt={"Image of the user's cat"} />
                 </div>
             </div>
             <div className="grow"></div>

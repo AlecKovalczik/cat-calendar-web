@@ -2,6 +2,7 @@
 
 import { createCat, State } from "@/app/actions/cat";
 import { useActionState } from "react";
+import Image from "next/image";
 
 export default function AdoptForm() {
     const initialState: State = { message: null, errors: {} };
@@ -49,7 +50,7 @@ export default function AdoptForm() {
                 <div className="grow"></div>
                 <div className="w-2/5">
                     {/* Cat picture should be automatically changed based on user selection */}
-                    <img src="/bad_cat.png" className="object-contain"></img>
+                    <Image src="/bad_cat.png" className="object-contain" alt={"Image of the user's cat"} />
                 </div>
             </div>
             <div className="grow"></div>

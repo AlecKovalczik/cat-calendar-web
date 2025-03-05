@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { getCat } from "../../lib/dal"
 import Link from "next/link";
+import Image from "next/image";
 
 export default async function CatPage() {
     const cat = await getCat();
@@ -26,7 +27,7 @@ export default async function CatPage() {
             <div className="flex flex-row h-screen w-full">
                 <div className="grow"></div>
                 <div className="w-1/2">
-                    <img src="/bad_cat.png" className="object-contain"></img>
+                    <Image src="/bad_cat.png" className="object-contain" alt={"Image of the user's cat"} />
                 </div>
                 <div className="grow"></div>
             </div>
