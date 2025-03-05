@@ -17,3 +17,12 @@ export type Task = {
     description: string,
     status: string,
 }
+
+export type Cat = {
+    id: string,
+    userId: string,
+    name: string,
+    coat_length: string,
+    coat_type: string,
+    coat_color: string,
+}

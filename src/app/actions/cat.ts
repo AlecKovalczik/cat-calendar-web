@@ -79,7 +79,7 @@ export async function createCat(prevState: State, formData: FormData) {
     redirect('/home/cat');
 }
 
-export async function updateTask(id: string, prevState: State, formData: FormData) {
+export async function updateCat(id: string, prevState: State, formData: FormData) {
     // Validate form fields using Zod
     const validatedFields = UpdateCat.safeParse({
         name: formData.get('name'),
@@ -113,7 +113,7 @@ export async function updateTask(id: string, prevState: State, formData: FormDat
     return { message: "Success: Cat updated." };
 }
 
-export async function deleteTask(prevState: State, id: string) {
+export async function deleteCat(prevState: State, id: string) {
     try {
         await sql`DELETE FROM cats WHERE id = ${id}`;
         redirect('/home/cat/adopt');
