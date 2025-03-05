@@ -4,6 +4,7 @@ import { z } from "zod";
 import { sql } from "@vercel/postgres";
 import { getUser } from "../lib/dal";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 const CatFormSchema = z.object({
     id: z.string(),
@@ -26,6 +27,9 @@ const CatFormSchema = z.object({
 
 // Use zod to create the expected types
 const CreateCat = CatFormSchema.omit({ id: true, userId: true });
+
+// Use zod to create the expected types
+const UpdateCat = CatFormSchema.omit({ id: true, userId: true });
 
 export type State = {
     errors?: {
@@ -73,4 +77,48 @@ export async function createCat(prevState: State, formData: FormData) {
     }
 
     redirect('/home/cat');
+}
+
+export async function updateTask(id: string, prevState: State, formData: FormData) {
+    // Validate form fields using Zod
+    const validatedFields = UpdateCat.safeParse({
+        name: formData.get('name'),
+        coat_length: formData.get('coat_length'),
+        coat_type: formData.get('coat_type'),
+        coat_color: formData.get('coat_color'),
+    });
+
+    // If form validation fails, return errors early. Otherwise, continue.
+    if (!validatedFields.success) {
+        return {
+            errors: validatedFields.error.flatten().fieldErrors,
+            message: 'Missing Fields. Failed to Create Cat.',
+        };
+    }
+
+    // Prepare data for insertion into the database
+    const { name, coat_length, coat_type, coat_color } = validatedFields.data;
+
+    try {
+        await sql`
+            UPDATE cats
+            SET name = ${name}, coat_length = ${coat_length}, coat_type = ${coat_type}, coat_color = ${coat_color}
+            WHERE id = ${id}
+        `;
+    } catch {
+        return { message: "Database Error: Failed to Update Cat." };
+    }
+
+    redirect('/home/cat');
+    return { message: "Success: Cat updated." };
+}
+
+export async function deleteTask(prevState: State, id: string) {
+    try {
+        await sql`DELETE FROM cats WHERE id = ${id}`;
+        redirect('/home/cat/adopt');
+        return { message: 'Deleted Cat.' };
+    } catch {
+        return { message: "Database Error: Failed to Delete Cat." };
+    }
 }
