@@ -13,11 +13,11 @@ export default function AdoptForm() {
                 <div className="flex flex-col w-2/5 space-y-2 pr-2 pb-4">
                     <div>
                         <label htmlFor="name">Name:</label><br></br>
-                        <input id="name" name="name" placeholder="Give your cat a name" className="w-full px-1 border border-black rounded-md bg-stone-100" />
+                        <input id="name" name="name" placeholder="Give your cat a name" className="w-full px-1 border border-black rounded-md bg-stone-100 hover:bg-stone-200" />
                     </div>
                     <div>
                         <label htmlFor="coat_length">Coat Length:</label><br></br>
-                        <select name="coat_length" id="coat_length" className="w-full bg-stone-100 border border-black rounded-sm">
+                        <select name="coat_length" id="coat_length" className="w-full bg-stone-100 hover:bg-stone-200 border border-black rounded-sm">
                             <option value="long">Long</option>
                             <option value="short">Short</option>
                             <option value="hairless">Hairless</option>
@@ -25,7 +25,7 @@ export default function AdoptForm() {
                     </div>
                     <div>
                         <label htmlFor="coat_type">Coat Type:</label><br></br>
-                        <select name="coat_type" id="coat_type" className="w-full bg-stone-100 border border-black rounded-sm">
+                        <select name="coat_type" id="coat_type" className="w-full bg-stone-100 hover:bg-stone-200 border border-black rounded-sm">
                             <option value="solid">Solid</option>
                             <option value="tabby">Tabby</option>
                             <option value="tuxedo">Tuxedo</option>
@@ -36,7 +36,7 @@ export default function AdoptForm() {
                     </div>
                     <div>
                         <label htmlFor="coat_color">Coat Color:</label><br></br>
-                        <select name="coat_color" id="coat_color" className="w-full bg-stone-100 border border-black rounded-sm">
+                        <select name="coat_color" id="coat_color" className="w-full bg-stone-100 hover:bg-stone-200 border border-black rounded-sm">
                             <option value="gray">Gray</option>
                             <option value="brown">Brown</option>
                             <option value="black">Black</option>

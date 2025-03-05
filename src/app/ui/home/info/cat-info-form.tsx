@@ -20,11 +20,11 @@ export default function CatInfoForm({ cat }: { cat: Cat }) {
                 <div className="flex flex-col w-2/5 space-y-2 pr-2 pb-4">
                     <div>
                         <label htmlFor="name">Name:</label><br></br>
-                        <input id="name" name="name" defaultValue={cat.name} placeholder="Give your cat a name" className="w-full px-1 border border-black rounded-md bg-stone-100" />
+                        <input id="name" name="name" defaultValue={cat.name} placeholder="Give your cat a name" className="w-full px-1 border border-black rounded-md bg-stone-100 hover:bg-stone-200" />
                     </div>
                     <div>
                         <label htmlFor="coat_length">Coat Length:</label><br></br>
-                        <select name="coat_length" id="coat_length" defaultValue={cat.coat_length} className="w-full bg-stone-100 border border-black rounded-sm">
+                        <select name="coat_length" id="coat_length" defaultValue={cat.coat_length} className="w-full bg-stone-100 hover:bg-stone-200 border border-black rounded-sm">
                             <option value="long">Long</option>
                             <option value="short">Short</option>
                             <option value="hairless">Hairless</option>
@@ -32,7 +32,7 @@ export default function CatInfoForm({ cat }: { cat: Cat }) {
                     </div>
                     <div>
                         <label htmlFor="coat_type">Coat Type:</label><br></br>
-                        <select name="coat_type" id="coat_type" defaultValue={cat.coat_type} className="w-full bg-stone-100 border border-black rounded-sm">
+                        <select name="coat_type" id="coat_type" defaultValue={cat.coat_type} className="w-full bg-stone-100 hover:bg-stone-200 border border-black rounded-sm">
                             <option value="solid">Solid</option>
                             <option value="tabby">Tabby</option>
                             <option value="tuxedo">Tuxedo</option>
@@ -43,7 +43,7 @@ export default function CatInfoForm({ cat }: { cat: Cat }) {
                     </div>
                     <div>
                         <label htmlFor="coat_color">Coat Color:</label><br></br>
-                        <select name="coat_color" id="coat_color" defaultValue={cat.coat_color} className="w-full bg-stone-100 border border-black rounded-sm">
+                        <select name="coat_color" id="coat_color" defaultValue={cat.coat_color} className="w-full bg-stone-100 hover:bg-stone-200 border border-black rounded-sm">
                             <option value="gray">Gray</option>
                             <option value="brown">Brown</option>
                             <option value="black">Black</option>
@@ -61,8 +61,8 @@ export default function CatInfoForm({ cat }: { cat: Cat }) {
             </div>
             <div className="grow"></div>
             <div className="flex flex-row space-x-2">
-                <Link href="/home/cat" className="h-12 w-1/5 text-center align-center border border-dashed border-black rounded-md bg-stone-100 hover:border-solid hover:border-black hover:bg-stone-200 hover:text-black">
-                    Cancel
+                <Link href="/home/cat" className="h-12 w-1/5 flex items-center justify-center border border-dashed border-black rounded-md bg-stone-100 hover:border-solid hover:border-black hover:bg-stone-200 hover:text-black">
+                    <p className="text-center md:block">Cancel</p>
                 </Link>
                 <div className="grow"></div>
                 <button onClick={rehomeCat} className="h-12 w-1/5 border border-dashed border-black rounded-md bg-stone-100 hover:border-solid hover:border-red-600 hover:bg-red-200 hover:text-red-800">
