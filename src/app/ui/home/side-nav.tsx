@@ -14,10 +14,10 @@ export default async function SideNav() {
                 className="mb-2 flex flex-col h-20 text-left justify-end rounded-md bg-violet-600 p-4 md:h-40 border border-black"
                 href="/"
             >
-                <div className="w-fill text-white">
+                <div className="w-full text-white">
                     <h1 className="text-3xl">Cat Calendar</h1>
                 </div>
-                <div className="w-fill text-white">
+                <div className="w-full text-white">
                     <h2 className="text-lg">Hello <b>{user.username}</b></h2>
                 </div>
             </Link>
