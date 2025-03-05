@@ -27,7 +27,7 @@ export default async function CatPage() {
             <div className="flex flex-row h-screen w-full">
                 <div className="grow"></div>
                 <div className="w-1/2">
-                    <Image src="/bad_cat.png" className="object-contain" alt={"Image of the user's cat"} />
+                    <Image src="/bad_cat.png" alt={"Image of the user's cat"} height={1000} width={1000} />
                 </div>
                 <div className="grow"></div>
             </div>

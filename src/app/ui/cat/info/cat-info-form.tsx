@@ -61,7 +61,7 @@ export default function CatInfoForm({ cat }: { cat: Cat }) {
                 <div className="grow"></div>
                 <div className="w-2/5">
                     {/* Cat picture should be automatically changed based on user selection */}
-                    <Image src="/bad_cat.png" className="object-contain" alt={"Image of the user's cat"} />
+                    <Image src="/bad_cat.png" alt={"Image of the user's cat"} height={1000} width={1000} />
                 </div>
             </div>
             <div className="grow"></div>
