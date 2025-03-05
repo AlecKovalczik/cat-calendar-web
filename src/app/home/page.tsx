@@ -3,9 +3,10 @@ import { getCat } from "../lib/dal"
 
 export default async function CatPage() {
     const cat = await getCat();
+
+    // If the user doesn't have a cat, redirect them to the adoption page
     if (cat === null) redirect("/home/adopt");
     const name = cat.name
-
 
     return (
         <main className="bg-white">
