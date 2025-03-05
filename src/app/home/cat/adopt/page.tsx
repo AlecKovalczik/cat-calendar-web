@@ -1,5 +1,5 @@
 import { getCat } from "@/app/lib/dal";
-import AdoptForm from "@/app/ui/home/adopt/adopt-form"
+import AdoptForm from "@/app/ui/cat/adopt/adopt-form"
 import { redirect } from "next/navigation";
 
 export default async function AdoptCat() {

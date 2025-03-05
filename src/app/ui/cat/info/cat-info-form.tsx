@@ -62,7 +62,7 @@ export default function CatInfoForm({ cat }: { cat: Cat }) {
             <div className="grow"></div>
             <div className="flex flex-row space-x-2">
                 <Link href="/home/cat" className="h-12 w-1/5 flex items-center justify-center border border-dashed border-black rounded-md bg-stone-100 hover:border-solid hover:border-black hover:bg-stone-200 hover:text-black">
-                    <p className="text-center md:block">Cancel</p>
+                    <span>Cancel</span>
                 </Link>
                 <div className="grow"></div>
                 <button onClick={rehomeCat} className="h-12 w-1/5 border border-dashed border-black rounded-md bg-stone-100 hover:border-solid hover:border-red-600 hover:bg-red-200 hover:text-red-800">

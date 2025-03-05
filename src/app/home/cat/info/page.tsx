@@ -1,15 +1,14 @@
 import { getCat } from "@/app/lib/dal";
-import AdoptForm from "@/app/ui/home/adopt/adopt-form"
 import { redirect } from "next/navigation";
 import { Cat } from "@/app/lib/definitions"
-import CatInfoForm from "@/app/ui/home/info/cat-info-form";
+import CatInfoForm from "@/app/ui/cat/info/cat-info-form";
 
 export default async function CatInfoPage() {
     const cat = await getCat();
 
     // If the user doesn't have a cat, redirect them to the adoption page
     if (cat === null) redirect("/home/cat/adopt");
-    const parsedCat: Cat = { 
+    const parsedCat: Cat = {
         id: cat.id,
         userId: cat.userId,
         name: cat.name,
