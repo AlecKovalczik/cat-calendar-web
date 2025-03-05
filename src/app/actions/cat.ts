@@ -4,7 +4,6 @@ import { z } from "zod";
 import { sql } from "@vercel/postgres";
 import { getUser } from "../lib/dal";
 import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
 
 const CatFormSchema = z.object({
     id: z.string(),
