@@ -2,7 +2,6 @@
 
 import { z } from "zod";
 import { sql } from "@vercel/postgres";
-import { revalidatePath } from "next/cache";
 import { getUser } from "../lib/dal";
 import { redirect } from "next/navigation";
 
@@ -73,6 +72,5 @@ export async function createCat(prevState: State, formData: FormData) {
         return { message: "Database Error: Failed to Create Cat." };
     }
 
-    revalidatePath('/home');
-    return { message: "Success: Cat created." };
+    redirect('/home/cat');
 }

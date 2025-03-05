@@ -67,7 +67,7 @@ export async function signup(state: SignupFormState, formData: FormData) {
         };
     }
 
-    redirect('/home');
+    redirect('/home/cat');
 }
 
 const LoginFormSchema = z.object({
@@ -126,7 +126,7 @@ export async function login(state: LoginFormState, formData: FormData) {
         };
     }
 
-    redirect('/home');
+    redirect('/home/cat');
 }
 
 export async function logout() {

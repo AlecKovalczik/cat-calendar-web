@@ -1,11 +1,11 @@
 import { redirect } from "next/navigation";
-import { getCat } from "../lib/dal"
+import { getCat } from "../../lib/dal"
 
 export default async function CatPage() {
     const cat = await getCat();
 
     // If the user doesn't have a cat, redirect them to the adoption page
-    if (cat === null) redirect("/home/adopt");
+    if (cat === null) redirect("/home/cat/adopt");
     const name = cat.name
 
     return (

@@ -6,9 +6,7 @@ export default async function AdoptCat() {
     const cat = await getCat();
     
     // If the user already has a cat, redirect to the cat page
-    if (cat != null) {
-        redirect("/home")
-    };
+    if (cat != null) redirect("/home/cat");
 
     return (
         <main>
