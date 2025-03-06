@@ -11,17 +11,32 @@ export default function SettingsPage() {
                     <div className="hidden w-auto h-full grow rounded-md md:block"></div>
                 </div>
             </header>
-            <main className="flex flex-row space-x-2 h-4/5 mx-12 mt-4 p-4 bg-white border border-black rounded-md shadow-[4px_4px_0_0_rgb(0,0,0,.3)] shadow-stone-400">
-                <div className="w-1/3 py-2">
-                    <h2 className="text-center text-xl">Profile</h2>
+            <main className="flex flex-col space-y-2 h-4/5 mx-12 mt-4 p-4 bg-white border border-black rounded-md shadow-[4px_4px_0_0_rgb(0,0,0,.3)] shadow-stone-400">
+                <div className="flex flex-row grow space-x-2">
+                    <div className="w-1/3 py-2">
+                        <h2 className="text-center text-xl">Profile</h2>
+                        <div className="px-8">
+                            <label htmlFor="username">Username:</label><br></br>
+                            <input id="username" name="username" placeholder="Enter a username" className="w-full px-1 border border-black rounded-md bg-gray-100" />
+                        </div>
+                    </div>
+                    <div className="h-full border-l border-dashed border-black "></div>
+                    <div className="w-1/3 py-2">
+                        <h2 className="text-center text-xl">Theme</h2>
+                    </div>
+                    <div className="h-full border-r border-dashed border-black"></div>
+                    <div className="w-1/3 py-2">
+                        <h2 className="text-center text-xl">Privacy</h2>
+                    </div>
                 </div>
-                <div className="h-full border-l border-dashed border-black "></div>
-                <div className="w-1/3 py-2">
-                    <h2 className="text-center text-xl">Theme</h2>
-                </div>
-                <div className="h-full border-r border-dashed border-black"></div>
-                <div className="w-1/3 py-2">
-                    <h2 className="text-center text-xl">Privacy</h2>
+                <div className="flex flex-row space-x-2">
+                    <div className="grow"></div>
+                    <button type="button" className="h-[35px] w-[90px] bg-white text-black border border-black rounded-md">
+                        Cancel
+                    </button>
+                    <button type="submit" className="h-[35px] w-[90px] bg-violet-500 text-white border border-black rounded-md">
+                        Save
+                    </button>
                 </div>
             </main>
         </div>
