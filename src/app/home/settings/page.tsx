@@ -19,6 +19,13 @@ export default function SettingsPage() {
                             <label htmlFor="username">Username:</label><br></br>
                             <input id="username" name="username" placeholder="Enter a username" className="w-full px-1 border border-black rounded-md bg-gray-100" />
                         </div>
+                        <div>
+                            <label htmlFor="email">{"Email (Optional):"}</label><br></br>
+                            <input id="email" name="email" placeholder="Enter an email" className="w-full px-1 border border-black rounded-md bg-gray-100" />
+                        </div>
+                        <div>
+                            Add a way to change your password here
+                        </div>
                     </div>
                     <div className="h-full border-l border-dashed border-black "></div>
                     <div className="flex flex-col space-y-2 w-1/3 py-2 px-8">
@@ -31,13 +38,18 @@ export default function SettingsPage() {
                         </div>
                         <div className="flex flex-row justify-between">
                             <span>Favoite Color:</span>
-                            
                             <input type="color" />
                         </div>
                     </div>
                     <div className="h-full border-r border-dashed border-black"></div>
                     <div className="flex flex-col space-y-2 w-1/3 py-2 px-8">
                         <h2 className="text-center text-xl">Privacy</h2>
+                        <div>
+                            <p>Social Visibility:</p>
+                            <input type="radio" id="visibility_all" name="social_visibility" value="device"></input><label htmlFor="visibility_all"> All</label><br></br>
+                            <input type="radio" id="visibility_friends" name="social_visibility" value="light"></input><label htmlFor="visibility_friends"> Friends</label><br></br>
+                            <input type="radio" id="visibility_nobody" name="social_visibility" value="dark"></input><label htmlFor="visibility_nobody"> Nobody</label><br></br>
+                        </div>
                     </div>
                 </div>
                 <div className="flex flex-row space-x-2">
