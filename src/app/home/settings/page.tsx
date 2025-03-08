@@ -13,19 +13,30 @@ export default function SettingsPage() {
             </header>
             <main className="flex flex-col space-y-2 h-4/5 mx-12 mt-4 p-4 bg-white border border-black rounded-md shadow-[4px_4px_0_0_rgb(0,0,0,.3)] shadow-stone-400">
                 <div className="flex flex-row grow space-x-2">
-                    <div className="w-1/3 py-2">
+                    <div className="flex flex-col space-y-2 w-1/3 py-2 px-8">
                         <h2 className="text-center text-xl">Profile</h2>
-                        <div className="px-8">
+                        <div>
                             <label htmlFor="username">Username:</label><br></br>
                             <input id="username" name="username" placeholder="Enter a username" className="w-full px-1 border border-black rounded-md bg-gray-100" />
                         </div>
                     </div>
                     <div className="h-full border-l border-dashed border-black "></div>
-                    <div className="w-1/3 py-2">
-                        <h2 className="text-center text-xl">Theme</h2>
+                    <div className="flex flex-col space-y-2 w-1/3 py-2 px-8">
+                        <h2 className="text-center text-xl">Graphics</h2>
+                        <div>
+                            <p>Theme:</p>
+                            <input type="radio" id="device" name="theme" value="device"></input><label htmlFor="device"> Device</label><br></br>
+                            <input type="radio" id="light" name="theme" value="light"></input><label htmlFor="light"> Light</label><br></br>
+                            <input type="radio" id="dark" name="theme" value="dark"></input><label htmlFor="dark"> Dark</label><br></br>
+                        </div>
+                        <div className="flex flex-row justify-between">
+                            <span>Favoite Color:</span>
+                            
+                            <input type="color" />
+                        </div>
                     </div>
                     <div className="h-full border-r border-dashed border-black"></div>
-                    <div className="w-1/3 py-2">
+                    <div className="flex flex-col space-y-2 w-1/3 py-2 px-8">
                         <h2 className="text-center text-xl">Privacy</h2>
                     </div>
                 </div>
