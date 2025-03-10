@@ -1,4 +1,4 @@
-import { fetchSearchedTasks } from "@/app/lib/data";
+import { fetchSearchedTasks } from "@/app/actions/tasks";
 import TaskItem from "./task";
 
 export default async function TaskList(props: {

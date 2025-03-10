@@ -37,22 +37,9 @@ export const getUser = cache(async () => {
     }
 })
 
-export const getCat = cache(async () => {
+export const getUsers = cache(async () => {
     const session = await verifySession();
+    if (!session.isAuth) return null;
 
-    try {
-        const idString = session.userId;
-        const data = await sql`
-            SELECT * FROM cats
-            WHERE user_id = ${idString} 
-        `;
-
-        const cat = data.rows[0];
-        if (!cat) return null;
-
-        return cat;
-    } catch {
-        console.log('Failed to fetch cat');
-        return null;
-    }
+    
 })

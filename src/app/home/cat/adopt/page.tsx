@@ -1,4 +1,4 @@
-import { getCat } from "@/app/lib/dal";
+import { getCat } from "@/app/actions/cat";
 import AdoptForm from "@/app/ui/cat/adopt/adopt-form"
 import { redirect } from "next/navigation";
 

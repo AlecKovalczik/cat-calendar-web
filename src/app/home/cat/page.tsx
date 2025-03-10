@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getCat } from "../../lib/dal"
+import { getCat } from "../../actions/cat"
 import Link from "next/link";
 import Image from "next/image";
 

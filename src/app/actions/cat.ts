@@ -2,8 +2,29 @@
 
 import { z } from "zod";
 import { sql } from "@vercel/postgres";
-import { getUser } from "../lib/dal";
+import { getUser, verifySession } from "../lib/dal";
 import { redirect } from "next/navigation";
+import { cache } from "react";
+
+export const getCat = cache(async () => {
+    const session = await verifySession();
+
+    try {
+        const idString = session.userId;
+        const data = await sql`
+            SELECT * FROM cats
+            WHERE user_id = ${idString} 
+        `;
+
+        const cat = data.rows[0];
+        if (!cat) return null;
+
+        return cat;
+    } catch {
+        console.log('Failed to fetch cat');
+        return null;
+    }
+})
 
 const CatFormSchema = z.object({
     id: z.string(),

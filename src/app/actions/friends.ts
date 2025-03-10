@@ -3,14 +3,31 @@
 import { z } from "zod";
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
-import { getUser } from "../lib/dal";
+import { getUser, verifySession } from "../lib/dal";
 import { redirect } from "next/navigation";
+import { cache } from "react";
 
-///////////
-// Tasks //
-///////////
+export const getFriends = cache(async () => {
+    const session = await verifySession();
 
-const FriendRequestSchema = z.object({
+    try {
+        const idString = session.userId;
+        const data = await sql`
+            SELECT * FROM friends
+            WHERE user_id = ${idString} 
+        `;
+
+        const connection = data.rows[0];
+        if (!connection) return null;
+
+        return connection;
+    } catch {
+        console.log('Failed to fetch connection');
+        return null;
+    }
+})
+
+const ConnectionSchema = z.object({
     id: z.string({
         invalid_type_error: "Please make sure you are logged in.",
     }),
@@ -26,7 +43,9 @@ const FriendRequestSchema = z.object({
 });
 
 // Use zod to create the expected types
-const AddConnection = FriendRequestSchema.omit({ id: true, accepted: true, blocked: true });
+const SendFriendRequest = ConnectionSchema.omit({ id: true, accepted: true, blocked: true });
+
+// const BlockUser = ConnectionSchema.omit({ id: true, accepted: true })
 
 // Use zod to update the expected types
 // const UpdateConnection = TaskFormSchema.omit({ id: true });
@@ -43,7 +62,7 @@ export type State = {
 
 export async function sendFriendRequest(prevState: State, formData: FormData) {
     // Validate form fields using Zod
-    const validatedFields = AddConnection.safeParse({
+    const validatedFields = SendFriendRequest.safeParse({
         friendId: formData.get('friend_id'),
     });
 
@@ -66,7 +85,7 @@ export async function sendFriendRequest(prevState: State, formData: FormData) {
 
     try {
         await sql`
-            INSERT INTO tasks (user_id, friend_id, accepted, blocked)
+            INSERT INTO friends (user_id, friend_id, accepted, blocked)
             VALUES (${id}, ${friendId}, ${false}, ${false})
         `;
     } catch {
