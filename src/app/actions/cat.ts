@@ -2,7 +2,8 @@
 
 import { z } from "zod";
 import { sql } from "@vercel/postgres";
-import { getUser, verifySession } from "../lib/dal";
+import { getUser } from "./users"
+import { verifySession } from "../lib/dal";
 import { redirect } from "next/navigation";
 import { cache } from "react";
 

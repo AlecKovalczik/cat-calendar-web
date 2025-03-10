@@ -3,7 +3,7 @@
 import { z } from "zod";
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
-import { getUser } from "../lib/dal";
+import { getUser } from "@/app/actions/users"
 import { redirect } from "next/navigation";
 import { Task } from "../lib/definitions";
 
