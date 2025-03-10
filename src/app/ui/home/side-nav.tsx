@@ -1,7 +1,7 @@
 import Link from "next/link";
 import NavLinks from "./nav-links";
 import { logout } from "@/app/actions/auth";
-import { getUser } from "@/app/lib/dal";
+import { getUser } from "@/app/actions/users";
 import { redirect } from "next/navigation";
 
 export default async function SideNav() {
