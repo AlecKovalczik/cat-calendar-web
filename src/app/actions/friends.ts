@@ -8,13 +8,17 @@ import { verifySession } from "../lib/dal";
 import { redirect } from "next/navigation";
 import { cache } from "react";
 
+export const searchUsers = cache(async() => {
+
+})
+
 export const getFriends = cache(async () => {
     const session = await verifySession();
 
     try {
         const idString = session.userId;
         const data = await sql`
-            SELECT * FROM friends
+            SELECT * FROM friendships
             WHERE user_id = ${idString} 
         `;
 
@@ -86,7 +90,7 @@ export async function sendFriendRequest(prevState: State, formData: FormData) {
 
     try {
         await sql`
-            INSERT INTO friends (user_id, friend_id, accepted, blocked)
+            INSERT INTO friendships (user_id, friend_id, accepted, blocked)
             VALUES (${id}, ${friendId}, ${false}, ${false})
         `;
     } catch {
