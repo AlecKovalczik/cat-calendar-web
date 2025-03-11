@@ -1,8 +1,13 @@
+import FriendsList from "@/app/ui/friends/friends-list";
 import Search from "@/app/ui/search";
 import Link from "next/link";
 import { Suspense } from "react";
 
-export default function FriendsPage() {
+export default function FriendsPage(props: {
+    searchParams?: Promise<{
+        query?: string;
+    }>;
+}) {
     return (
         <div className="w-fill">
             <div className="sticky top-0 w-fill pt-4 pb-2 px-12 mb-2 bg-gray-100 border border-b-black border-dashed z-10"> {/*sticky top-0 pt-4 pb-2 px-12 mb-2 backdrop-blur border border-b-black border-dashed */}
@@ -20,7 +25,7 @@ export default function FriendsPage() {
                 </div>
             </div>
             <div className="px-12">
-                {/* <TaskList searchParams={props.searchParams} /> */}
+                <FriendsList searchParams={props.searchParams} />
             </div>
         </div>
     )
