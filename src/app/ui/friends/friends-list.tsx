@@ -1,6 +1,5 @@
 import { searchFriends } from "@/app/actions/friends"
 import FriendItem from "./friend";
-import { User } from "@/app/lib/definitions"
 
 export default async function TaskList(props: {
     searchParams?: Promise<{

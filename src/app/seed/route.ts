@@ -131,14 +131,14 @@ async function seedFriendships() {
 export async function GET() {
   try {
     await client.sql`BEGIN`;
-    // await client.sql`DROP TABLE users`;
-    // await client.sql`DROP TABLE tasks`;
-    // await client.sql`DROP TABLE cats`;
-    // await client.sql`DROP TABLE friendships`;
-    // await seedUsers();
-    // await seedTasks();
-    // await seedCats();
-    // await seedFriendships();
+    await client.sql`DROP TABLE users`;
+    await client.sql`DROP TABLE tasks`;
+    await client.sql`DROP TABLE cats`;
+    await client.sql`DROP TABLE friendships`;
+    await seedUsers();
+    await seedTasks();
+    await seedCats();
+    await seedFriendships();
     await client.sql`COMMIT`;
 
     return Response.json({ message: 'Database seeded successfully' });
