@@ -9,7 +9,8 @@ export default async function TaskList(props: {
     const searchParams = await props.searchParams;
     const query = searchParams?.query || '';
 
-    const users = await fetchSearchedTasks(query);
+    const users = [{ "id": "1", "username": "person1", "email": "", "password": "" }];
+    // const users = await fetchSearchedTasks(query);
 
     return (
         <div className="space-y-2 ">

@@ -1,3 +1,4 @@
+import UserList from "@/app/ui/friends/user-list";
 import Search from "@/app/ui/search";
 import { Suspense } from "react";
 
