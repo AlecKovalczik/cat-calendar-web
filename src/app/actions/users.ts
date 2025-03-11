@@ -24,22 +24,22 @@ export const getUser = cache(async () => {
     }
 })
 
-export const getUsers = cache(async () => {
-    const session = await verifySession();
-    if (!session.isAuth) redirect("/");
+// export const getUsers = cache(async () => {
+//     const session = await verifySession();
+//     if (!session.isAuth) redirect("/");
 
-    try {
-        const data = await sql<User>`
-                SELECT id, username FROM users
-                LIMIT 50;
-            `
+//     try {
+//         const data = await sql<User>`
+//                 SELECT id, username FROM users
+//                 LIMIT 50;
+//             `
 
-        return data.rows;
-    } catch (error) {
-        console.error("Database Error:", error);
-        throw new Error("Failed to fetch user data with that search term.");
-    }
-})
+//         return data.rows;
+//     } catch (error) {
+//         console.error("Database Error:", error);
+//         throw new Error("Failed to fetch users.");
+//     }
+// })
 
 export async function searchUsers(searchTerm: string) {
     const session = await verifySession();
