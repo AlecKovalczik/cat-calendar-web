@@ -2,6 +2,7 @@ import { cache } from "react";
 import { verifySession } from "../lib/dal";
 import { sql } from "@vercel/postgres";
 import { User } from "../lib/definitions";
+import { redirect } from "next/navigation";
 
 export const getUser = cache(async () => {
     const session = await verifySession();
@@ -25,7 +26,7 @@ export const getUser = cache(async () => {
 
 export const getUsers = cache(async () => {
     const session = await verifySession();
-    if (!session.isAuth) return null;
+    if (!session.isAuth) redirect("/");
 
     try {
         const data = await sql<User>`
@@ -40,9 +41,9 @@ export const getUsers = cache(async () => {
     }
 })
 
-export const searchUsers = cache(async (searchTerm: string) => {
+export async function searchUsers(searchTerm: string) {
     const session = await verifySession();
-    if (!session.isAuth) return null;
+    if (!session.isAuth) redirect("/");
 
     try {
         const data = await sql<User>`
@@ -54,6 +55,6 @@ export const searchUsers = cache(async (searchTerm: string) => {
         return data.rows;
     } catch (error) {
         console.error("Database Error:", error);
-        throw new Error("Failed to fetch user data with that search term.");
+        throw new Error("Failed to fetch users with that search term.");
     }
-})
+}
