@@ -57,4 +57,19 @@ const tasks = [
     },
 ];
 
-export { users, tasks, cats };
+const friendships = [
+    {
+        userId: users[0].id,
+        friendId: users[1].id,
+        accepted: true,
+        blocked: false,
+    },
+    {
+        userId: users[1].id,
+        friendId: users[0].id,
+        accepted: true,
+        blocked: false,
+    },
+];
+
+export { users, tasks, cats, friendships };

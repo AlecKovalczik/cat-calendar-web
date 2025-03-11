@@ -1,7 +1,7 @@
 // import bcrypt from "bcrypt";
 import { db } from "@vercel/postgres";
 import bcryptjs from "bcryptjs";
-import { users, tasks, cats } from "@/app/lib/placeholder-data";
+import { users, tasks, cats, friendships } from "@/app/lib/placeholder-data";
 
 const client = await db.connect();
 
@@ -99,15 +99,46 @@ async function seedCats() {
   return insertedCats;
 }
 
+/////////////
+// Friends //
+/////////////
+
+async function seedFriendships() {
+  await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`
+  await client.sql`
+    CREATE TABLE IF NOT EXISTS friendships (
+      user_id UUID NOT NULL,
+      friend_id UUID NOT NULL,
+      accepted BOOLEAN NOT NULL,
+      blocked BOOLEAN NOT NULL
+    );
+  `;
+
+  const insertedFriendships = await Promise.all(
+    friendships.map((friendship) => {
+      return client.sql`
+          INSERT INTO friendships (user_id, friend_id, accepted, blocked)
+          VALUES (${friendship.userId}, ${friendship.friendId}, ${friendship.accepted}, ${friendship.blocked});
+      `;
+    }),
+  );
+
+  return insertedFriendships;
+}
+
+
+
 export async function GET() {
   try {
     await client.sql`BEGIN`;
-    await client.sql`DROP TABLE users`;
-    await client.sql`DROP TABLE tasks`;
-    await client.sql`DROP TABLE cats`;
-    await seedUsers();
-    await seedTasks();
-    await seedCats();
+    // await client.sql`DROP TABLE users`;
+    // await client.sql`DROP TABLE tasks`;
+    // await client.sql`DROP TABLE cats`;
+    // await client.sql`DROP TABLE friendships`;
+    // await seedUsers();
+    // await seedTasks();
+    // await seedCats();
+    // await seedFriendships();
     await client.sql`COMMIT`;
 
     return Response.json({ message: 'Database seeded successfully' });
