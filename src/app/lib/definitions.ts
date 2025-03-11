@@ -25,3 +25,10 @@ export type Cat = {
     coat_type: string,
     coat_color: string,
 }
+
+export type Friendship = {
+    userId: string,
+    friendId: string,
+    accepted: boolean,
+    blocked: boolean,
+}
