@@ -16,11 +16,14 @@ export async function searchNonFriends(searchTerm: string) {
         const data = await sql<User>`
                 SELECT id, username FROM users
                 WHERE username ILIKE ${`%${searchTerm}%`}
-                AND id != ${session.userId}
-                LIMIT 50;
-            `
-            // Add a way to filter out users that are already your friend.
-            // Add a way to do pagination instead of just limiting to 50
+                    AND id != ${session.userId}
+                EXCEPT
+                SELECT id, username FROM friendships 
+                INNER JOIN users 
+                    ON friend_id = id
+                WHERE user_id = ${session.userId}
+            `;
+            // Add a way to do pagination
 
         return data.rows;
     } catch (error) {
