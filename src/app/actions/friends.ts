@@ -6,31 +6,51 @@ import { revalidatePath } from "next/cache";
 import { getUser } from "./users"
 import { verifySession } from "../lib/dal";
 import { redirect } from "next/navigation";
-import { cache } from "react";
+import { User } from "../lib/definitions";
 
-export const searchUsers = cache(async() => {
-
-})
-
-export const getFriends = cache(async () => {
+export async function searchNonFriends(searchTerm: string) {
     const session = await verifySession();
+    if (!session.isAuth) redirect("/");
 
     try {
-        const idString = session.userId;
-        const data = await sql`
-            SELECT * FROM friendships
-            WHERE user_id = ${idString} 
-        `;
+        const data = await sql<User>`
+                SELECT id, username FROM users
+                WHERE username ILIKE ${`%${searchTerm}%`}
+                AND id != ${session.userId}
+                LIMIT 50;
+            `
+            // Add a way to filter out users that are already your friend.
+            // Add a way to do pagination instead of just limiting to 50
 
-        const connection = data.rows[0];
-        if (!connection) return null;
-
-        return connection;
-    } catch {
-        console.log('Failed to fetch connection');
-        return null;
+        return data.rows;
+    } catch (error) {
+        console.error("Database Error:", error);
+        throw new Error("Failed to fetch users with that search term.");
     }
-})
+}
+
+export async function searchFriends(searchTerm: string) {
+    const session = await verifySession();
+    if (!session.isAuth) redirect("/");
+
+    try {
+        const data = await sql`
+            SELECT friend_id, username 
+            FROM friendships 
+            INNER JOIN users 
+                ON friend_id = id
+            WHERE user_id = ${session.userId} 
+                AND username ILIKE ${`%${searchTerm}%`}
+            LIMIT 50;
+        `;
+        // Add a way to do pagination instead of just limiting to 50
+        
+        return data.rows;
+    } catch (error) {
+        console.error("Database Error:", error);
+        throw new Error("Failed to fetch friends with that search term.");
+    }
+}
 
 const ConnectionSchema = z.object({
     id: z.string({

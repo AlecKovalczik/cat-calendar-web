@@ -1,4 +1,4 @@
-import { searchUsers } from "@/app/actions/users"
+import { searchNonFriends } from "@/app/actions/friends"
 import UserItem from "./user";
 import { User } from "@/app/lib/definitions"
 
@@ -10,7 +10,7 @@ export default async function TaskList(props: {
     const searchParams = await props.searchParams;
     const query = searchParams?.query || '';
 
-    const users = await searchUsers(query);
+    const users = await searchNonFriends(query);
 
     return (
         <div className="space-y-2 ">

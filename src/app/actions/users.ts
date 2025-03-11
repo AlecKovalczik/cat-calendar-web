@@ -41,7 +41,7 @@ export const getUser = cache(async () => {
 //     }
 // })
 
-export async function searchUsers(searchTerm: string) {
+export async function searchOtherUsers(searchTerm: string) {
     const session = await verifySession();
     if (!session.isAuth) redirect("/");
 
@@ -49,6 +49,7 @@ export async function searchUsers(searchTerm: string) {
         const data = await sql<User>`
                 SELECT id, username FROM users
                 WHERE username ILIKE ${`%${searchTerm}%`}
+                AND id != ${session.userId}
                 LIMIT 50;
             `
 
