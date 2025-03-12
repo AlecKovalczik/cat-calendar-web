@@ -1,11 +1,11 @@
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 
 export default function Home() {
   return (
     <div className="w-fill">
-      <header className="sticky top-0 w-fill pt-4 pb-2 px-4 mb-2 bg-gray-100 border border-b-black border-dashed z-10">
-        <div className="sticky flex flex-row grow items-center gap-4 row-start-2 p-4 bg-violet-600 border border-black rounded-md shadow-[4px_4px_0_0_rgb(0,0,0,.3)] shadow-stone-400">
+      <div className="mt-4 right-0 left-0 mx-4 flex flex-col gap-4 row-start-2 px-4 pb-4 bg-violet-600 border border-black rounded-md shadow-[4px_4px_0_0_rgb(0,0,0,.3)] shadow-stone-400">
+        <div className="mt-4 flex flex-row grow bg-violet-600 items-center row-start-2 ">
           <h1 className="h-fill align-middle text-white text-3xl">Cat Calendar</h1>
           <div className="grow"></div>
           <Link
@@ -21,10 +21,7 @@ export default function Home() {
             <span>Sign up</span>
           </Link>
         </div>
-      </header>
-      <main className="bg-gray-100 text-gray-900">
-        {/* Hero Section */}
-        <header className="bg-violet-600 text-white text-center mx-4 py-16 px-6  border border-black rounded-md shadow-[4px_4px_0_0_rgb(0,0,0,.3)] shadow-stone-400">
+        <div className="static flex flex-col text-white items-center scroll-auto mb-4">
           <h1 className="text-4xl font-bold">🚀 Stay Productive. Save Your Cat.</h1>
           <p className="mt-4 text-lg">
             {"A task tracker that keeps you on schedule—because your cat's life depends on it!"}
@@ -37,13 +34,17 @@ export default function Home() {
               Learn More
             </button> */}
           </div>
-          <Image
+          {/* <Image
             src="/public/bad-cat.png"
-            alt="Cat sitting next to a planner"
+            alt="Cat sitting next to a planner (not yet created, I need art...)"
             className="mx-auto mt-8 w-64"
-          />
-        </header>
+            width="600"
+            height="100"
+          /> */}
+        </div>
+      </div>
 
+      <main className="bg-gray-100 text-gray-900">
         {/* How It Works Section */}
         <section className="py-16 px-6 text-center">
           <h2 className="text-3xl font-bold text-violet-600">How It Works</h2>
@@ -67,11 +68,14 @@ export default function Home() {
         <section className="bg-gray-200 py-16 px-6">
           <h2 className="text-3xl font-bold text-violet-600 text-center">{"Why You'll Love It"}</h2>
           <div className="flex flex-col md:flex-row items-center justify-between mt-8">
-            <Image
+            <div>{"Mockup Image Here (Still need art)"}</div>
+            {/* <Image
               src="/images/app-mockup.png"
-              alt="App Mockup"
+              alt="App Mockup (not yet created)"
               className="w-full md:w-1/2 border border-black rounded-md shadow-[4px_4px_0_0_rgb(0,0,0,.3)] shadow-stone-400"
-            />
+              width="600"
+              height="200"
+            /> */}
             <ul className="mt-6 md:mt-0 md:ml-12 space-y-4">
               {[
                 "✅ Fun & Motivating – Procrastination is harder when your cat is on the line.",
