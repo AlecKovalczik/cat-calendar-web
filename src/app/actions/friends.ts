@@ -36,7 +36,7 @@ export async function searchFriends(searchTerm: string) {
 
     try {
         const data = await sql`
-            SELECT friend_id, username 
+            SELECT friendship_id, friend_id, username 
             FROM friendships 
             INNER JOIN users 
                 ON friend_id = id
