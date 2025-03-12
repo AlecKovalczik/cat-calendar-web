@@ -27,6 +27,7 @@ export type Cat = {
 }
 
 export type Friendship = {
+    id: string,
     userId: string,
     friendId: string,
     accepted: boolean,

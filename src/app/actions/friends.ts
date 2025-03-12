@@ -1,9 +1,7 @@
 'use server';
 
-import { z } from "zod";
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
-import { getUser } from "./users"
 import { verifySession } from "../lib/dal";
 import { redirect } from "next/navigation";
 import { User } from "../lib/definitions";
@@ -69,6 +67,8 @@ export async function sendFriendrequest(friendId: string) {
         console.error("Database Error:", error);
         throw new Error("Failed to send friend request.");
     }
+
+    revalidatePath("/home/friends/find")
 }
 
 export async function acceptFriendrequest(friendId: string) {
@@ -84,6 +84,19 @@ export async function acceptFriendrequest(friendId: string) {
     } catch (error) {
         console.error("Database Error:", error);
         throw new Error("Failed to send friend request.");
+    }
+}
+
+export async function removeFriend(friendId: string) {
+    const session = await verifySession();
+    if (!session.isAuth) redirect("/");
+
+    try {
+        await sql`DELETE FROM friendships WHERE user_id = ${session.userId} AND friend_id = ${friendId}`;
+        revalidatePath('/home/friends');
+    } catch (error) {
+        console.error("Database Error:", error);
+        throw new Error("Failed to remove friend.");
     }
 }
 

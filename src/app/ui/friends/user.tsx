@@ -3,7 +3,6 @@
 import { User } from "@/app/lib/definitions"
 import { useState } from "react";
 import { sendFriendrequest } from "@/app/actions/friends";
-import { revalidatePath } from "next/cache";
 
 export default function UserItem({ user }: { user: User }) {
     const [show, setShow] = useState(false);
@@ -15,7 +14,6 @@ export default function UserItem({ user }: { user: User }) {
     async function addFriend() {
         await sendFriendrequest(user.id);
         toggleShow();
-        revalidatePath("/home/friends/find");
     }
 
     return (

@@ -1,12 +1,18 @@
 'use client';
 
 import { useState } from "react";
+import { removeFriend } from "@/app/actions/friends";
 
-export default function FriendItem({ username }: { username: string }) {
+export default function FriendItem({ id, username }: { id: string, username: string }) {
     const [show, setShow] = useState(false);
 
     function toggleShow() {
         setShow(!show);
+    }
+
+    async function unfriend() {
+        await removeFriend(id);
+        toggleShow();
     }
 
     return (
@@ -25,7 +31,7 @@ export default function FriendItem({ username }: { username: string }) {
                         <div className="mt-2 px-7 py-3">
                             <h1><b>Username: {username}</b></h1>
                             <button onClick={toggleShow}>Close</button>
-                            <button onClick={toggleShow}>Remove</button>
+                            <button onClick={unfriend}>Remove</button>
                         </div>
                     </div>
                 </div>

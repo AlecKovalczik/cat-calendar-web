@@ -16,7 +16,7 @@ export default async function TaskList(props: {
             {
                 friends.map((friend) => {
                     return (
-                        <FriendItem key={friend.friend_id} username={friend.username} />
+                        <FriendItem key={friend.id} id={friend.friend_id} username={friend.username} />
                     )
                 })
             }

@@ -107,6 +107,7 @@ async function seedFriendships() {
   await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`
   await client.sql`
     CREATE TABLE IF NOT EXISTS friendships (
+      friendship_id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
       user_id UUID NOT NULL,
       friend_id UUID NOT NULL,
       accepted BOOLEAN NOT NULL,
@@ -118,7 +119,8 @@ async function seedFriendships() {
     friendships.map((friendship) => {
       return client.sql`
           INSERT INTO friendships (user_id, friend_id, accepted, blocked)
-          VALUES (${friendship.userId}, ${friendship.friendId}, ${friendship.accepted}, ${friendship.blocked});
+          VALUES (${friendship.userId}, ${friendship.friendId}, ${friendship.accepted}, ${friendship.blocked})
+          ON CONFLICT (friendship_id) DO NOTHING;
       `;
     }),
   );
@@ -131,13 +133,13 @@ async function seedFriendships() {
 export async function GET() {
   try {
     await client.sql`BEGIN`;
-    await client.sql`DROP TABLE users`;
-    await client.sql`DROP TABLE tasks`;
-    await client.sql`DROP TABLE cats`;
+    // await client.sql`DROP TABLE users`;
+    // await client.sql`DROP TABLE tasks`;
+    // await client.sql`DROP TABLE cats`;
     await client.sql`DROP TABLE friendships`;
-    await seedUsers();
-    await seedTasks();
-    await seedCats();
+    // await seedUsers();
+    // await seedTasks();
+    // await seedCats();
     await seedFriendships();
     await client.sql`COMMIT`;
 
