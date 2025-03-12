@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="w-fill">
       <div className="mt-4 right-0 left-0 mx-4 flex flex-col gap-4 row-start-2 px-4 pb-4 bg-violet-600 border border-black rounded-md shadow-[4px_4px_0_0_rgb(0,0,0,.3)] shadow-stone-400">
-        <div className="mt-4 flex flex-row grow bg-violet-600 items-center row-start-2 ">
+        <div className="mt-4 flex flex-row grow bg-violet-600 items-center row-start-2 gap-2 ">
           <h1 className="h-fill align-middle text-white text-3xl">Cat Calendar</h1>
           <div className="grow"></div>
           <Link
