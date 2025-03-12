@@ -2,12 +2,20 @@
 
 import { User } from "@/app/lib/definitions"
 import { useState } from "react";
+import { sendFriendrequest } from "@/app/actions/friends";
+import { revalidatePath } from "next/cache";
 
 export default function UserItem({ user }: { user: User }) {
     const [show, setShow] = useState(false);
 
     function toggleShow() {
         setShow(!show);
+    }
+
+    async function addFriend() {
+        await sendFriendrequest(user.id);
+        toggleShow();
+        revalidatePath("/home/friends/find");
     }
 
     return (
@@ -26,7 +34,7 @@ export default function UserItem({ user }: { user: User }) {
                         <div className="mt-2 px-7 py-3">
                             <h1><b>Username: {user.username}</b></h1>
                             <button onClick={toggleShow}>Close</button>
-                            <button onClick={toggleShow}>Add</button>
+                            <button onClick={addFriend}>Add</button>
                         </div>
                     </div>
                 </div>
